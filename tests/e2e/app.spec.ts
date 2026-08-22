@@ -6,6 +6,11 @@ const routes = [
     heading: 'Pilih cara kecil untuk mengatakan sesuatu yang besar.',
   },
   {
+    path: '/unsaid-garden',
+    heading: 'Ada beberapa kata yang belum siap diucapkan—jadi aku menanamnya.',
+    linkName: 'The Unsaid Garden',
+  },
+  {
     path: '/heart-repair',
     heading: 'Ada satu hati yang perlu sedikit dirawat.',
     linkName: 'Tiny Heart Repair Shop',
@@ -50,7 +55,7 @@ for (const route of routes) {
   })
 }
 
-test('link halaman utama membuka ketiga route dan browser Back berfungsi', async ({
+test('link halaman utama membuka keempat route dan browser Back berfungsi', async ({
   page,
 }) => {
   const errors = collectPageErrors(page)
@@ -129,7 +134,7 @@ test('gallery tetap utuh ketika prefers-reduced-motion aktif', async ({ page }) 
   await page.goto('/')
 
   const themeLinks = page.getByRole('navigation').getByRole('link')
-  await expect(themeLinks).toHaveCount(3)
+  await expect(themeLinks).toHaveCount(4)
 
   for (const themeLink of await themeLinks.all()) {
     await expect(themeLink).toBeVisible()
@@ -140,7 +145,7 @@ test('SVG dekoratif tidak masuk ke accessibility tree', async ({ page }) => {
   await page.goto('/')
 
   const decorativeSvgs = page.locator('nav svg')
-  await expect(decorativeSvgs).toHaveCount(3)
+  await expect(decorativeSvgs).toHaveCount(4)
 
   for (const svg of await decorativeSvgs.all()) {
     await expect(svg).toHaveAttribute('aria-hidden', 'true')

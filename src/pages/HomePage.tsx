@@ -3,6 +3,7 @@ import { homeRoute } from '../app/themeRegistry.ts'
 import { HeartRepairPreview } from './gallery/HeartRepairPreview.tsx'
 import { LostAndFoundPreview } from './gallery/LostAndFoundPreview.tsx'
 import { MidnightRadioPreview } from './gallery/MidnightRadioPreview.tsx'
+import { UnsaidGardenPreview } from './gallery/UnsaidGardenPreview.tsx'
 import styles from './HomePage.module.css'
 
 export function HomePage() {
@@ -22,7 +23,7 @@ export function HomePage() {
           </p>
           <h1 id="home-title">{homeRoute.title}</h1>
           <p className={styles.intro}>
-            Tiga pengalaman interaktif untuk menyampaikan hal-hal yang terkadang
+            Empat pengalaman interaktif untuk menyampaikan hal-hal yang terkadang
             sulit diucapkan.
           </p>
         </motion.div>
@@ -49,10 +50,20 @@ export function HomePage() {
         </h2>
         <ul className={styles.shelf}>
           <motion.li
-            className={`${styles.item} ${styles.heartItem}`}
+            className={`${styles.item} ${styles.featuredItem}`}
             initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.42, delay: 0.16, ease: 'easeOut' }}
+          >
+            <UnsaidGardenPreview />
+          </motion.li>
+        </ul>
+        <ul className={styles.lowerShelf}>
+          <motion.li
+            className={`${styles.item} ${styles.heartItem}`}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.42, delay: 0.23, ease: 'easeOut' }}
           >
             <HeartRepairPreview />
           </motion.li>
@@ -60,7 +71,7 @@ export function HomePage() {
             className={`${styles.item} ${styles.lostItem}`}
             initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.42, delay: 0.23, ease: 'easeOut' }}
+            transition={{ duration: 0.42, delay: 0.3, ease: 'easeOut' }}
           >
             <LostAndFoundPreview />
           </motion.li>
@@ -68,7 +79,7 @@ export function HomePage() {
             className={`${styles.item} ${styles.radioItem}`}
             initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.42, delay: 0.3, ease: 'easeOut' }}
+            transition={{ duration: 0.42, delay: 0.37, ease: 'easeOut' }}
           >
             <MidnightRadioPreview />
           </motion.li>

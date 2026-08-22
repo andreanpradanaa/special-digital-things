@@ -1,13 +1,23 @@
 export type ThemeMetadata = {
-  id: 'heart-repair' | 'lost-and-found' | 'midnight-radio'
-  path: '/heart-repair' | '/lost-and-found' | '/midnight-radio'
+  id: 'unsaid-garden' | 'heart-repair' | 'lost-and-found' | 'midnight-radio'
+  path: '/unsaid-garden' | '/heart-repair' | '/lost-and-found' | '/midnight-radio'
   title: string
   summary: string
   previewAction: string
   placeholderMessage: string
+  placement: 'featured' | 'shelf'
 }
 
 export const themeRegistry = [
+  {
+    id: 'unsaid-garden',
+    path: '/unsaid-garden',
+    title: 'The Unsaid Garden',
+    summary: 'Sebuah rumah kaca kecil untuk kata-kata yang membutuhkan waktu sebelum berani mekar.',
+    previewAction: 'Masuk ke rumah kaca',
+    placeholderMessage: 'Rumah kaca kecil Ari untuk Nara sudah tersedia.',
+    placement: 'featured',
+  },
   {
     id: 'heart-repair',
     path: '/heart-repair',
@@ -17,6 +27,7 @@ export const themeRegistry = [
     previewAction: 'Masuk ke bengkel',
     placeholderMessage:
       'Ruang untuk pengalaman bengkel hati Ari dan Nara sudah tersedia. Pengalaman interaktifnya akan dibuat pada milestone berikutnya.',
+    placement: 'shelf',
   },
   {
     id: 'lost-and-found',
@@ -27,6 +38,7 @@ export const themeRegistry = [
     previewAction: 'Ambil tiket',
     placeholderMessage:
       'Ruang untuk claim ticket dan laci-laci kenangan sudah tersedia. Pengalaman interaktifnya belum diimplementasikan.',
+    placement: 'shelf',
   },
   {
     id: 'midnight-radio',
@@ -37,6 +49,7 @@ export const themeRegistry = [
     previewAction: 'Cari frekuensi',
     placeholderMessage:
       'Ruang untuk radio tengah malam sudah tersedia. Dial, frekuensi, dan audio belum diimplementasikan.',
+    placement: 'shelf',
   },
 ] as const satisfies readonly ThemeMetadata[]
 

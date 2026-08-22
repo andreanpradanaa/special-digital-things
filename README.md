@@ -35,6 +35,7 @@ npm run preview
 ## Routes
 
 - `/` — gallery koleksi interactive gift.
+- `/unsaid-garden` — The Unsaid Garden.
 - `/heart-repair` — Tiny Heart Repair Shop.
 - `/lost-and-found` — The Things You Left With Me.
 - `/midnight-radio` — 11:11 Midnight Radio.
@@ -43,7 +44,7 @@ npm run preview
 ## Struktur utama
 
 - `src/app` — application shell, router, dan typed theme registry.
-- `src/pages` — gallery, tiga experience route-scoped, dan Not Found.
+- `src/pages` — gallery, empat experience route-scoped, dan Not Found.
 - `src/shared` — utilitas global yang sudah mempunyai kebutuhan nyata.
 - `src/styles` — reset, tokens, dan global styles.
 - `tests/e2e` — Playwright smoke tests.

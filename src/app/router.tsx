@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router'
 import { HeartRepairPage } from '../pages/heart-repair/HeartRepairPage.tsx'
 import { LostAndFoundPage } from '../pages/lost-and-found/LostAndFoundPage.tsx'
 import { MidnightRadioPage } from '../pages/midnight-radio/MidnightRadioPage.tsx'
+import { UnsaidGardenPage } from '../pages/unsaid-garden/UnsaidGardenPage.tsx'
 import { HomePage } from '../pages/HomePage.tsx'
 import { NotFoundPage } from '../pages/NotFoundPage.tsx'
 import { AppShell } from './AppShell.tsx'
@@ -11,6 +12,7 @@ export function AppRoutes() {
     <Routes>
       <Route element={<AppShell />}>
         <Route index element={<HomePage />} />
+        <Route path="unsaid-garden" element={<UnsaidGardenPage />} />
         <Route
           path="heart-repair"
           element={<HeartRepairPage />}

@@ -1,19 +1,29 @@
 :root {
   color-scheme: light;
 
-  --font-sans: ui-rounded, "SF Pro Rounded", "Segoe UI", system-ui, -apple-system,
+  --font-display: ui-rounded, "SF Pro Rounded", "Segoe UI Rounded", system-ui,
+    sans-serif;
+  --font-sans: "Avenir Next", Avenir, "Segoe UI", system-ui, -apple-system,
     BlinkMacSystemFont, sans-serif;
+  --font-utility: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono",
+    monospace;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: clamp(1.0625rem, 2vw, 1.25rem);
 
-  --color-background: #fffaf6;
-  --color-surface: #ffffff;
-  --color-text: #463b3c;
-  --color-text-strong: #261d20;
-  --color-text-muted: #675b5d;
-  --color-border: #dfd5d2;
-  --color-accent: #a53d55;
+  --color-background: #fbf4e9;
+  --color-surface: #fffdf8;
+  --color-text: #4c3e3f;
+  --color-text-strong: #302326;
+  --color-text-muted: #6f6060;
+  --color-border: #ddcec2;
+  --color-accent: #a54155;
+  --color-coral: #dc706d;
+  --color-coral-deep: #a94355;
+  --color-teal: #789c95;
+  --color-teal-deep: #426e69;
+  --color-midnight: #33435f;
+  --color-amber: #d59b4a;
   --color-focus: #176b87;
 
   --space-1: 0.25rem;

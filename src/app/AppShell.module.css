@@ -52,10 +52,10 @@
 
 .main {
   display: grid;
-  width: min(100% - (2 * var(--page-gutter)), var(--content));
+  width: min(100% - (2 * var(--page-gutter)), var(--content-wide));
   flex: 1;
   margin-inline: auto;
-  padding-block: clamp(var(--space-7), 8vw, var(--space-10));
+  padding-block: clamp(var(--space-6), 5vw, var(--space-8));
 }
 
 .footer {

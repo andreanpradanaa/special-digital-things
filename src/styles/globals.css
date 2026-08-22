@@ -5,6 +5,7 @@ html {
 }
 
 body {
+  position: relative;
   min-width: 0;
   min-height: 100svh;
   color: var(--color-text);
@@ -16,7 +17,27 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body::before {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgb(92 64 55 / 10%) 0 0.55px, transparent 0.7px),
+    radial-gradient(circle, rgb(255 255 255 / 65%) 0 0.7px, transparent 0.85px);
+  background-position:
+    0 0,
+    5px 7px;
+  background-size:
+    11px 13px,
+    17px 19px;
+  content: '';
+  opacity: 0.28;
+  pointer-events: none;
+}
+
 #root {
+  position: relative;
+  z-index: 1;
   min-width: 0;
   min-height: 100svh;
 }

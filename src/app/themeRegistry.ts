@@ -3,6 +3,7 @@ export type ThemeMetadata = {
   path: '/heart-repair' | '/lost-and-found' | '/midnight-radio'
   title: string
   summary: string
+  previewAction: string
   placeholderMessage: string
 }
 
@@ -11,7 +12,9 @@ export const themeRegistry = [
     id: 'heart-repair',
     path: '/heart-repair',
     title: 'Tiny Heart Repair Shop',
-    summary: 'Sebuah bengkel kecil untuk hati yang membutuhkan sedikit perawatan.',
+    summary:
+      'Untuk hari yang terasa terlalu berat dan hati yang membutuhkan sedikit perawatan.',
+    previewAction: 'Masuk ke bengkel',
     placeholderMessage:
       'Ruang untuk pengalaman bengkel hati Ari dan Nara sudah tersedia. Pengalaman interaktifnya akan dibuat pada milestone berikutnya.',
   },
@@ -19,7 +22,9 @@ export const themeRegistry = [
     id: 'lost-and-found',
     path: '/lost-and-found',
     title: 'The Things You Left With Me',
-    summary: 'Sebuah kantor lost-and-found untuk benda dan kenangan yang tertinggal.',
+    summary:
+      'Untuk hal-hal kecil yang tetap tinggal, bahkan setelah waktunya berlalu.',
+    previewAction: 'Ambil tiket',
     placeholderMessage:
       'Ruang untuk claim ticket dan laci-laci kenangan sudah tersedia. Pengalaman interaktifnya belum diimplementasikan.',
   },
@@ -27,7 +32,9 @@ export const themeRegistry = [
     id: 'midnight-radio',
     path: '/midnight-radio',
     title: '11:11 Midnight Radio',
-    summary: 'Sebuah radio rahasia yang menunggu pesan pada waktu yang tepat.',
+    summary:
+      'Untuk pesan yang hanya berani terdengar ketika malam menjadi tenang.',
+    previewAction: 'Cari frekuensi',
     placeholderMessage:
       'Ruang untuk radio tengah malam sudah tersedia. Dial, frekuensi, dan audio belum diimplementasikan.',
   },
@@ -37,7 +44,7 @@ export type ThemeId = (typeof themeRegistry)[number]['id']
 
 export const homeRoute = {
   path: '/',
-  title: 'Koleksi Interactive Digital Gifts',
+  title: 'Pilih cara kecil untuk mengatakan sesuatu yang besar.',
 } as const
 
 export const notFoundRoute = {

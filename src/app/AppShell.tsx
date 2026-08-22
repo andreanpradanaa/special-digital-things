@@ -15,7 +15,7 @@ export function AppShell() {
         <Link className={styles.brand} to="/">
           Special Digital Things
         </Link>
-        <span className={styles.status}>Prototype foundation</span>
+        <span className={styles.status}>A small collection of big feelings</span>
       </header>
 
       <main className={styles.main} id="main-content">

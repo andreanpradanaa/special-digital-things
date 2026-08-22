@@ -11,6 +11,7 @@ describe('themeRegistry', () => {
 
     for (const theme of themeRegistry) {
       expect(theme.path).toMatch(/^\/[a-z-]+$/)
+      expect(theme.previewAction.length).toBeGreaterThan(0)
       expect(getThemeByPath(theme.path)).toEqual(theme)
       expect(getThemeByPath(`${theme.path}/`)).toEqual(theme)
     }

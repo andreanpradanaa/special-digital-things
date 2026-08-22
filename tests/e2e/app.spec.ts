@@ -17,7 +17,7 @@ const routes = [
   },
   {
     path: '/midnight-radio',
-    heading: '11:11 Midnight Radio',
+    heading: 'Ada satu siaran yang hanya muncul saat dunia sudah tenang.',
     linkName: '11:11 Midnight Radio',
   },
 ] as const

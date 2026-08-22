@@ -53,6 +53,12 @@
       "decision": "Build Lost & Found as an archival office scene with a physical ticket, asymmetric paper records, cabinet drawers, and an inspection counter rather than cards or a dashboard.",
       "reason": "The experience needs a quieter, nostalgic interaction language distinct from the coral Heart Repair workshop.",
       "source": "Milestone 4 approved experience flow"
+    },
+    {
+      "id": "midnight-radio-private-frequency",
+      "decision": "Build Midnight Radio as one painted navy analogue console with a real range tuner, physical received indicators, a private channel reveal, and a paper QSL keepsake.",
+      "reason": "The experience needs to feel like finding a small transmission late at night, not operating a music-player or dashboard interface.",
+      "source": "Milestone 5 approved experience flow"
     }
   ],
   "evidence": [

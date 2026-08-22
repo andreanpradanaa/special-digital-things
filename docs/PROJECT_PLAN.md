@@ -40,8 +40,8 @@ Sample gift memakai pengirim **Ari** dan penerima **Nara**.
 1. **Project foundation dan quality harness — completed.** Shell, route, registry, styles dasar, accessibility global, unit test, Playwright, dan dokumentasi tersedia dan tervalidasi.
 2. **Global design foundation dan theme gallery — completed.** Gallery menggunakan komposisi keepsake shelf dengan tiga preview object original dan telah melewati review visual Milestone 2.
 3. **Tiny Heart Repair Shop — completed.** Pengalaman pertama end-to-end tersedia pada `/heart-repair` dan telah melewati review visual.
-4. **The Things You Left With Me — implemented, awaiting visual review.** Pengalaman kedua end-to-end tersedia pada `/lost-and-found`.
-5. **11:11 Midnight Radio** — pengalaman ketiga termasuk audio controls dan fallback.
+4. **The Things You Left With Me — completed.** Pengalaman kedua end-to-end tersedia pada `/lost-and-found` dan telah melewati review visual.
+5. **11:11 Midnight Radio — implemented, awaiting visual review.** Pengalaman ketiga end-to-end tersedia pada `/midnight-radio`.
 6. **Asset integration dan interaction polish**.
 7. **Cross-browser, accessibility, responsive, dan final regression**.
 
@@ -102,6 +102,26 @@ Milestone tidak dilanjutkan sebelum milestone aktif dapat dijalankan, dilihat, d
 ## Artefak visual Milestone 4
 
 - Screenshot disimpan pada `artifacts/milestone-4/`. Angka viewport pada nama file menunjukkan viewport capture, bukan selalu dimensi file, karena screenshot memakai `fullPage`.
+
+## Keputusan 11:11 Midnight Radio Milestone 5
+
+- Radio memakai reducer typed dengan phase `arrival`, `tuning`, `fragment`, `private-unlock`, `final-broadcast`, dan `qsl`. Waktu naratif dihitung murni dari jumlah sinyal unik: `11:08`, `11:09`, `11:10`, lalu `11:11`; tidak bergantung pada jam sistem.
+- Frekuensi direpresentasikan sebagai integer tenths (`880` sampai `1080`) agar tampilan dan status sinyal tidak memakai perbandingan floating point. Tiga broadcast typed menjadi sumber tunggal frekuensi, clue, transcript, dan urutan progres.
+- Range input native menyediakan `aria-valuetext`, Arrow key, serta tombol perubahan `0.1`; tombol capture hanya tersedia saat status tekstual `SIGNAL LOCKED`. Log received dan lampu konsol menggantikan progress bar.
+- Scene radio memakai casing painted navy, jendela kaca frekuensi, grille speaker, knob, dan kartu kertas QSL yang berbeda dari certificate Heart Repair maupun receipt Lost & Found. SVG dekoratif disembunyikan dari accessibility tree.
+- Ambience Web Audio bersifat optional dan default OFF. Tombol eksplisit mengaktifkan oscillator volume rendah setelah user gesture; toggle off, replay, kegagalan inisialisasi, dan unmount menghentikan node, memutus koneksi, lalu menutup `AudioContext`. Seluruh pesan tetap tersedia sebagai teks.
+- Direct route tidak memaksa focus; scene setelah transition memfokuskan heading. Live region hanya mengumumkan perubahan phase penting, bukan setiap perubahan range.
+- Audit contrast private-unlock memakai foreground `#343149` di atas paper cream `#f5e8ca` dengan rasio **10.28:1**. Defect sebelumnya berasal dari reuse `.body` dark-stage `#d7d9df` di atas paper cream (1.16:1), bukan opacity, Motion, overlay, atau grain. Regression E2E memeriksa computed color, opacity `1`, visibility, hit-testing overlay, dan rasio minimal 4.5:1 setelah state stabil. Audit terbatas juga mengubah label QSL menjadi `#59616c` pada cream (5.16:1); fragment/final transcript `#3f3b4c` (8.90:1), QSL closing line `#506b73` (4.68:1), serta body tuning `#d7d9df` di navy `#10182d` (12.50:1) tetap memenuhi target.
+
+## Risiko dan kompromi untuk review Milestone 5
+
+- Ambience adalah tone sintetis ringan, bukan simulasi static audio realistis atau musik. Pengujian perangkat nyata masih perlu memverifikasi volume dan kebijakan autoplay browser yang berbeda; flow tetap lengkap jika Web Audio ditolak.
+- Tuning dibuat forgiving dengan toleransi satu integer tenth untuk `SIGNAL LOCKED`; detail ini dapat disetel tanpa mengubah reducer atau copy.
+- Screenshot Milestone 5 memakai `fullPage`. Nama seperti `390x844` dan `1280x800` menyatakan viewport capture, sedangkan tinggi file dapat lebih besar.
+
+## Artefak visual Milestone 5
+
+- Screenshot disimpan pada `artifacts/milestone-5/`, termasuk state arrival, powered, locked, fragment, private unlock (`radio-three-received-390x844.png` dan `radio-three-received-1280x800.png`), final broadcast, dan QSL card.
 
 ## Definition of done Milestone 1
 

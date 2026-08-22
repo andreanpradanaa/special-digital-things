@@ -125,5 +125,5 @@ test('reduced motion, skip link, overflow, Heart Repair, dan Midnight Radio tida
   await page.goto('/heart-repair')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Ada satu hati yang perlu sedikit dirawat.')
   await page.goto('/midnight-radio')
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('11:11 Midnight Radio')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Ada satu siaran yang hanya muncul saat dunia sudah tenang.')
 })

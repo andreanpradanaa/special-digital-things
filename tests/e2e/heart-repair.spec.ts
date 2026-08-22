@@ -329,7 +329,7 @@ test('tidak ada horizontal overflow pada viewport yang didukung', async ({ page 
   }
 })
 
-test('Lost and Found tersedia dan Midnight Radio tetap placeholder', async ({ page }) => {
+test('Lost and Found dan Midnight Radio tersedia', async ({ page }) => {
   await page.goto('/lost-and-found')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Ada beberapa hal milikmu yang masih tersimpan di sini.',
@@ -337,6 +337,6 @@ test('Lost and Found tersedia dan Midnight Radio tetap placeholder', async ({ pa
 
   await page.goto('/midnight-radio')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    '11:11 Midnight Radio',
+    'Ada satu siaran yang hanya muncul saat dunia sudah tenang.',
   )
 })

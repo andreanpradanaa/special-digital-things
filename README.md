@@ -1,6 +1,6 @@
 # Special Digital Things
 
-Prototype mobile-first untuk menguji tiga konsep interactive digital gift dalam satu React application. Repository saat ini baru menyelesaikan Milestone 1: project foundation dan quality harness.
+Prototype mobile-first untuk menguji tiga konsep interactive digital gift dalam satu React application.
 
 ## Prasyarat
 
@@ -34,19 +34,19 @@ npm run preview
 
 ## Routes
 
-- `/` — daftar semantic link menuju route tema.
-- `/heart-repair` — placeholder Tiny Heart Repair Shop.
-- `/lost-and-found` — placeholder The Things You Left With Me.
-- `/midnight-radio` — placeholder 11:11 Midnight Radio.
+- `/` — gallery koleksi interactive gift.
+- `/heart-repair` — Tiny Heart Repair Shop.
+- `/lost-and-found` — The Things You Left With Me.
+- `/midnight-radio` — 11:11 Midnight Radio.
 - Route lain — halaman Not Found.
 
 ## Struktur utama
 
 - `src/app` — application shell, router, dan typed theme registry.
-- `src/pages` — home, placeholder, dan Not Found.
+- `src/pages` — gallery, tiga experience route-scoped, dan Not Found.
 - `src/shared` — utilitas global yang sudah mempunyai kebutuhan nyata.
 - `src/styles` — reset, tokens, dan global styles.
 - `tests/e2e` — Playwright smoke tests.
 - `docs/PROJECT_PLAN.md` — scope dan milestone project.
 
-Milestone ini sengaja belum berisi final gallery, pengalaman tema, state machine, ilustrasi, atau audio.
+Setiap experience memakai sample sender Ari dan recipient Nara; seluruh visual dibuat dengan CSS/inline SVG original. Midnight Radio menyediakan ambience Web Audio optional yang default OFF.

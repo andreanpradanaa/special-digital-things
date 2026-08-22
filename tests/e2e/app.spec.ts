@@ -12,7 +12,7 @@ const routes = [
   },
   {
     path: '/lost-and-found',
-    heading: 'The Things You Left With Me',
+    heading: 'Ada beberapa hal milikmu yang masih tersimpan di sini.',
     linkName: 'The Things You Left With Me',
   },
   {

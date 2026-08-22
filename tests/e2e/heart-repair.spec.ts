@@ -329,10 +329,10 @@ test('tidak ada horizontal overflow pada viewport yang didukung', async ({ page 
   }
 })
 
-test('Lost and Found dan Midnight Radio tetap placeholder', async ({ page }) => {
+test('Lost and Found tersedia dan Midnight Radio tetap placeholder', async ({ page }) => {
   await page.goto('/lost-and-found')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'The Things You Left With Me',
+    'Ada beberapa hal milikmu yang masih tersimpan di sini.',
   )
 
   await page.goto('/midnight-radio')

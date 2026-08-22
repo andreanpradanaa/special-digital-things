@@ -39,8 +39,8 @@ Sample gift memakai pengirim **Ari** dan penerima **Nara**.
 
 1. **Project foundation dan quality harness — completed.** Shell, route, registry, styles dasar, accessibility global, unit test, Playwright, dan dokumentasi tersedia dan tervalidasi.
 2. **Global design foundation dan theme gallery — completed.** Gallery menggunakan komposisi keepsake shelf dengan tiga preview object original dan telah melewati review visual Milestone 2.
-3. **Tiny Heart Repair Shop — implemented, awaiting visual review.** Pengalaman pertama end-to-end tersedia pada `/heart-repair`.
-4. **The Things You Left With Me** — pengalaman kedua end-to-end.
+3. **Tiny Heart Repair Shop — completed.** Pengalaman pertama end-to-end tersedia pada `/heart-repair` dan telah melewati review visual.
+4. **The Things You Left With Me — implemented, awaiting visual review.** Pengalaman kedua end-to-end tersedia pada `/lost-and-found`.
 5. **11:11 Midnight Radio** — pengalaman ketiga termasuk audio controls dan fallback.
 6. **Asset integration dan interaction polish**.
 7. **Cross-browser, accessibility, responsive, dan final regression**.
@@ -84,6 +84,24 @@ Milestone tidak dilanjutkan sebelum milestone aktif dapat dijalankan, dilihat, d
 
 - Screenshot disimpan pada `artifacts/milestone-3/`. Angka viewport dalam nama file—misalnya `390x844` dan `1280x800`—menunjukkan viewport yang dipakai saat capture.
 - Capture memakai `fullPage`, sehingga dimensi akhir file dapat lebih tinggi daripada angka viewport pada nama file. Screenshot normal dibuat melalui pointer flow yang terisolasi; `heart-skip-link-focus-390x844.png` secara sengaja menunjukkan state focus keyboard skip link.
+
+## Keputusan The Things You Left With Me Milestone 4
+
+- Claim code typed `0427` berada pada `lostAndFoundContent`, bersama empat record kabinet typed: SOUND, SUNDAY, COURAGE, dan HOME. Setiap record memuat label kabinet, accessible name, visual key, dan seluruh copy inspection.
+- Reducer memakai phase `arrival`, `claim-ticket`, `verification`, `cabinet`, `inspecting`, `finale`, dan `receipt`. Empty atau wrong claim tidak dapat masuk kabinet; record yang sama tidak dapat menggandakan progress.
+- Laci UNRETURNABLE hanya unlock ketika empat ID required telah terbuka. Receipt dapat kembali ke kabinet dengan record final tetap completed.
+- Inspection bukan modal: close mengembalikan focus ke handle laci pembuka dengan `useLayoutEffect`; transition scene lain memfokuskan heading setelah mount. Direct route tidak memaksa focus sehingga Tab pertama tetap menuju skip link.
+- Visual memakai dusty teal, walnut, aged paper, brass, dan burgundy. Kabinet, stamp ticket, dan inspection counter membentuk satu office scene; tidak memakai heart character atau palette workshop Heart Repair.
+
+## Risiko dan kompromi untuk review Milestone 4
+
+- Artefak dibuat sebagai SVG/CSS original agar prototype tidak membutuhkan media eksternal. Ukuran dan detail visual perlu dikonfirmasi pada perangkat sentuh nyata, terutama drawer handle pada 320px.
+- Form verification sengaja tidak memiliki loading state. Stempel benar/salah ditampilkan sebagai text state langsung agar flow tetap cepat dan mudah diakses.
+- Receipt kembali ke kabinet mempertahankan record completed, tetapi tidak memutar ulang artifact reveal otomatis; pengguna tetap memilih laci yang ingin diperiksa lagi.
+
+## Artefak visual Milestone 4
+
+- Screenshot disimpan pada `artifacts/milestone-4/`. Angka viewport pada nama file menunjukkan viewport capture, bukan selalu dimensi file, karena screenshot memakai `fullPage`.
 
 ## Definition of done Milestone 1
 

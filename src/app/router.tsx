@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router'
 import { HeartRepairPage } from '../pages/heart-repair/HeartRepairPage.tsx'
+import { LostAndFoundPage } from '../pages/lost-and-found/LostAndFoundPage.tsx'
 import { HomePage } from '../pages/HomePage.tsx'
 import { NotFoundPage } from '../pages/NotFoundPage.tsx'
 import { ThemePlaceholderPage } from '../pages/ThemePlaceholderPage.tsx'
@@ -16,7 +17,7 @@ export function AppRoutes() {
         />
         <Route
           path="lost-and-found"
-          element={<ThemePlaceholderPage themeId="lost-and-found" />}
+          element={<LostAndFoundPage />}
         />
         <Route
           path="midnight-radio"

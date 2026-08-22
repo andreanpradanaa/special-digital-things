@@ -47,6 +47,12 @@
       "decision": "Keep the Heart Repair experience in one physical repair bay whose work artifacts change by state, with a pointer drag plus a native button alternative for repair.",
       "reason": "The experience needs to feel tactile and handmade without excluding keyboard or assistive-technology users.",
       "source": "Milestone 3 approved experience flow"
+    },
+    {
+      "id": "lost-found-archive-cabinet",
+      "decision": "Build Lost & Found as an archival office scene with a physical ticket, asymmetric paper records, cabinet drawers, and an inspection counter rather than cards or a dashboard.",
+      "reason": "The experience needs a quieter, nostalgic interaction language distinct from the coral Heart Repair workshop.",
+      "source": "Milestone 4 approved experience flow"
     }
   ],
   "evidence": [

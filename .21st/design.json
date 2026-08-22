@@ -41,6 +41,12 @@
       "decision": "Use an asymmetric keepsake shelf with three original object silhouettes; keep links transparent instead of card surfaces.",
       "reason": "The gallery should feel like touching a small collection of sentimental objects, not browsing a SaaS grid.",
       "source": "Milestone 2 approved creative direction"
+    },
+    {
+      "id": "heart-repair-workshop-bay",
+      "decision": "Keep the Heart Repair experience in one physical repair bay whose work artifacts change by state, with a pointer drag plus a native button alternative for repair.",
+      "reason": "The experience needs to feel tactile and handmade without excluding keyboard or assistive-technology users.",
+      "source": "Milestone 3 approved experience flow"
     }
   ],
   "evidence": [

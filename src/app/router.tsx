@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router'
+import { HeartRepairPage } from '../pages/heart-repair/HeartRepairPage.tsx'
 import { HomePage } from '../pages/HomePage.tsx'
 import { NotFoundPage } from '../pages/NotFoundPage.tsx'
 import { ThemePlaceholderPage } from '../pages/ThemePlaceholderPage.tsx'
@@ -11,7 +12,7 @@ export function AppRoutes() {
         <Route index element={<HomePage />} />
         <Route
           path="heart-repair"
-          element={<ThemePlaceholderPage themeId="heart-repair" />}
+          element={<HeartRepairPage />}
         />
         <Route
           path="lost-and-found"

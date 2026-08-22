@@ -5,9 +5,21 @@ const routes = [
     path: '/',
     heading: 'Pilih cara kecil untuk mengatakan sesuatu yang besar.',
   },
-  { path: '/heart-repair', heading: 'Tiny Heart Repair Shop' },
-  { path: '/lost-and-found', heading: 'The Things You Left With Me' },
-  { path: '/midnight-radio', heading: '11:11 Midnight Radio' },
+  {
+    path: '/heart-repair',
+    heading: 'Ada satu hati yang perlu sedikit dirawat.',
+    linkName: 'Tiny Heart Repair Shop',
+  },
+  {
+    path: '/lost-and-found',
+    heading: 'The Things You Left With Me',
+    linkName: 'The Things You Left With Me',
+  },
+  {
+    path: '/midnight-radio',
+    heading: '11:11 Midnight Radio',
+    linkName: '11:11 Midnight Radio',
+  },
 ] as const
 
 function collectPageErrors(page: Page) {
@@ -46,7 +58,7 @@ test('link halaman utama membuka ketiga route dan browser Back berfungsi', async
   await page.goto('/')
 
   for (const route of routes.slice(1)) {
-    const themeLink = page.getByRole('link', { name: route.heading })
+    const themeLink = page.getByRole('link', { name: route.linkName })
 
     await themeLink.focus()
     await expect(themeLink).toBeFocused()

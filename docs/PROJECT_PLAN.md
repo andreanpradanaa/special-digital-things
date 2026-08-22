@@ -38,8 +38,8 @@ Sample gift memakai pengirim **Ari** dan penerima **Nara**.
 ## Milestone
 
 1. **Project foundation dan quality harness — completed.** Shell, route, registry, styles dasar, accessibility global, unit test, Playwright, dan dokumentasi tersedia dan tervalidasi.
-2. **Global design foundation dan theme gallery — implemented, awaiting visual review.** Gallery menggunakan komposisi keepsake shelf dengan tiga preview object original.
-3. **Tiny Heart Repair Shop** — pengalaman pertama end-to-end.
+2. **Global design foundation dan theme gallery — completed.** Gallery menggunakan komposisi keepsake shelf dengan tiga preview object original dan telah melewati review visual Milestone 2.
+3. **Tiny Heart Repair Shop — implemented, awaiting visual review.** Pengalaman pertama end-to-end tersedia pada `/heart-repair`.
 4. **The Things You Left With Me** — pengalaman kedua end-to-end.
 5. **11:11 Midnight Radio** — pengalaman ketiga termasuk audio controls dan fallback.
 6. **Asset integration dan interaction polish**.
@@ -64,6 +64,26 @@ Milestone tidak dilanjutkan sebelum milestone aktif dapat dijalankan, dilihat, d
 - Preview toolbox hanya memberi petunjuk visual; struktur toolbox, heart state, dan repair tools untuk experience belum diputuskan.
 - System font dipertahankan untuk MVP. Custom lettering hanya boleh dipertimbangkan jika dibuat original dan tetap mempunyai accessible text equivalent.
 - Hosting production kelak membutuhkan SPA fallback untuk direct URL; tetap di luar scope milestone ini.
+
+## Keputusan Tiny Heart Repair Shop Milestone 3
+
+- Experience menggunakan satu repair bay yang berganti artefak kerja—work order, tag pegboard, prescription slip, meja repair, surat, lalu certificate—bukan rangkaian form atau halaman onboarding.
+- Model state memakai phase eksplisit `arrival`, `diagnosis`, `prescription`, `repairing`, `reveal`, dan `certificate`. Reducer hanya menerima transition yang valid dan reset selalu kembali ke work order awal.
+- Konfigurasi typed `heartConditions` adalah sumber tunggal untuk empat diagnosis. Setiap diagnosis membawa satu prescription, visual outcome, pesan reveal, dan label treatment certificate sehingga tidak ada matrix tool yang ambigu.
+- Repair memakai Motion pointer drag menuju target hati, dengan native button `Gunakan [nama alat]` sebagai alternatif keyboard dan assistive technology. Keduanya menjalankan transition reducer yang sama.
+- Fokus dipindahkan ke heading scene saat phase berganti; pengumuman ringkas memakai live region. SVG ilustratif disembunyikan dari accessibility tree dan visual state tetap mempunyai teks pendukung.
+- Reduced motion menghapus perpindahan scene dan membuka reveal secara langsung setelah repair, tanpa menghilangkan alternatif non-drag atau informasi state.
+
+## Risiko dan kompromi untuk review Milestone 3
+
+- Ilustrasi CSS/SVG dibuat sebagai material workshop MVP; review visual perlu memastikan ukuran tool dan heart tetap nyaman pada perangkat 320px dengan jari pengguna nyata.
+- Drag target memakai bounding box dengan padding agar forgiving untuk touch. Jika pengujian perangkat nyata menunjukkan terlalu mudah atau terlalu sulit, radius target adalah penyetelan pertama tanpa mengubah state model.
+- Reveal otomatis setelah repair sengaja singkat (760 ms) agar terasa responsif. Timing dan tone motion masih perlu dikonfirmasi pada review visual sebelum milestone berikutnya.
+
+## Artefak visual Milestone 3
+
+- Screenshot disimpan pada `artifacts/milestone-3/`. Angka viewport dalam nama file—misalnya `390x844` dan `1280x800`—menunjukkan viewport yang dipakai saat capture.
+- Capture memakai `fullPage`, sehingga dimensi akhir file dapat lebih tinggi daripada angka viewport pada nama file. Screenshot normal dibuat melalui pointer flow yang terisolasi; `heart-skip-link-focus-390x844.png` secara sengaja menunjukkan state focus keyboard skip link.
 
 ## Definition of done Milestone 1
 

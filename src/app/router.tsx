@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router'
-import { HeartRepairPage } from '../pages/heart-repair/HeartRepairPage.tsx'
+import { HeartRepairRoute } from '../pages/heart-repair/HeartRepairPage.tsx'
 import { LostAndFoundPage } from '../pages/lost-and-found/LostAndFoundPage.tsx'
 import { MidnightRadioPage } from '../pages/midnight-radio/MidnightRadioPage.tsx'
+import { SecretMessageMachinePage } from '../pages/secret-message-machine/SecretMessageMachinePage.tsx'
 import { UnsaidGardenPage } from '../pages/unsaid-garden/UnsaidGardenPage.tsx'
 import { HomePage } from '../pages/HomePage.tsx'
 import { NotFoundPage } from '../pages/NotFoundPage.tsx'
@@ -12,10 +13,11 @@ export function AppRoutes() {
     <Routes>
       <Route element={<AppShell />}>
         <Route index element={<HomePage />} />
+        <Route path="secret-message-machine" element={<SecretMessageMachinePage />} />
         <Route path="unsaid-garden" element={<UnsaidGardenPage />} />
         <Route
           path="heart-repair"
-          element={<HeartRepairPage />}
+          element={<HeartRepairRoute />}
         />
         <Route
           path="lost-and-found"

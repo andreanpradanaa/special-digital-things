@@ -40,7 +40,7 @@ export function RadioConsole({
         <path d="M92 75h420" />
       </svg>
       <div className="radio-casing">
-        <div className="radio-topline"><span>ARI’S NIGHT SERVICE</span><span>NO. 111</span></div>
+        <div className="radio-topline"><span>ANDRE’S NIGHT SERVICE</span><span>NO. 111</span></div>
         <div className="radio-window">
           <div className="window-header"><span>FM / PRIVATE</span><time>{time}</time></div>
           <div className="frequency-readout">{privateChannel ? 'PRIVATE 11:11' : `${frequency} FM`}</div>

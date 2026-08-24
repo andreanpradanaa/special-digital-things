@@ -123,7 +123,7 @@
 
   .lowerShelf {
     position: relative;
-    grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.86fr) minmax(0, 1.18fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: end;
     gap: clamp(1.5rem, 3vw, 3.25rem);
     padding-bottom: var(--space-4);
@@ -162,6 +162,8 @@
   .heartItem {
     padding-right: var(--space-2);
   }
+
+  .gardenItem { padding-inline: var(--space-1); }
 
   .lostItem {
     padding-inline: var(--space-1);

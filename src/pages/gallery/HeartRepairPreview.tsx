@@ -52,7 +52,7 @@ export function HeartRepairPreview() {
             <path d="m253 63 45 8-8 42-45-8Z" />
             <circle cx="259" cy="76" r="3" />
             <text x="263" y="88">SERVICE</text>
-            <text x="261" y="99">NARA</text>
+            <text x="261" y="99">GUSTI</text>
           </g>
         </svg>
       </span>

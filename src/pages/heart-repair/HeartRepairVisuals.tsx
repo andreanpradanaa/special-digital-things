@@ -7,12 +7,14 @@ import styles from './HeartRepairPage.module.css'
 
 type HeartCharacterProps = {
   condition?: HeartCondition
+  recipientName: string
   repaired?: boolean
   targetRef?: RefObject<HTMLDivElement | null>
 }
 
 export function HeartCharacter({
   condition,
+  recipientName,
   repaired = false,
   targetRef,
 }: HeartCharacterProps) {
@@ -72,8 +74,8 @@ export function HeartCharacter({
       </svg>
       <span className="visually-hidden">
         {condition
-          ? `Hati Nara dengan kondisi ${condition.label}`
-          : 'Hati Nara sedang menunggu pemeriksaan'}
+          ? `Hati ${recipientName} dengan kondisi ${condition.label}`
+          : `Hati ${recipientName} sedang menunggu pemeriksaan`}
       </span>
     </div>
   )

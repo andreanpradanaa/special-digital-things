@@ -62,9 +62,15 @@
     },
     {
       "id": "unsaid-garden-greenhouse-ritual",
-      "decision": "Make The Unsaid Garden a greenhouse ritual with sealed seed packets, a soil bed, two care controls, growing botanical labels, and a pressed-flower folio; feature it above the keepsake shelf.",
+      "decision": "Make The Unsaid Garden a greenhouse ritual with sealed seed packets, a soil bed, two care controls, growing botanical labels, and a pressed-flower folio; keep it on the shelf after the featured machine.",
       "reason": "The experience should feel patient, organic, and tactile while remaining clearly distinct from a vending, capsule, or machine metaphor.",
       "source": "Milestone 6 approved experience flow"
+    },
+    {
+      "id": "secret-message-machine-capsule-ritual",
+      "decision": "Build Secret Message Machine as one handmade lilac capsule machine with a pointer knob, a native turn alternative, a physical output bay, and an eight-message shuffle bag; feature it before the existing garden.",
+      "reason": "The quick ritual should feel tactile and surprising without changing the completed greenhouse or the three original gift experiences.",
+      "source": "Secret Message Machine implementation brief"
     }
   ],
   "evidence": [

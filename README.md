@@ -1,6 +1,6 @@
 # Special Digital Things
 
-Prototype mobile-first untuk menguji tiga konsep interactive digital gift dalam satu React application.
+Prototype mobile-first untuk menguji koleksi interactive digital gift dalam satu React application.
 
 ## Prasyarat
 
@@ -35,6 +35,7 @@ npm run preview
 ## Routes
 
 - `/` — gallery koleksi interactive gift.
+- `/secret-message-machine` — Secret Message Machine.
 - `/unsaid-garden` — The Unsaid Garden.
 - `/heart-repair` — Tiny Heart Repair Shop.
 - `/lost-and-found` — The Things You Left With Me.
@@ -44,10 +45,10 @@ npm run preview
 ## Struktur utama
 
 - `src/app` — application shell, router, dan typed theme registry.
-- `src/pages` — gallery, empat experience route-scoped, dan Not Found.
+- `src/pages` — gallery, lima experience route-scoped, dan Not Found.
 - `src/shared` — utilitas global yang sudah mempunyai kebutuhan nyata.
 - `src/styles` — reset, tokens, dan global styles.
 - `tests/e2e` — Playwright smoke tests.
 - `docs/PROJECT_PLAN.md` — scope dan milestone project.
 
-Setiap experience memakai sample sender Ari dan recipient Nara; seluruh visual dibuat dengan CSS/inline SVG original. Midnight Radio menyediakan ambience Web Audio optional yang default OFF.
+Setiap experience memakai sample sender Andre dan recipient Gusti; seluruh visual dibuat dengan CSS/inline SVG original. Midnight Radio menyediakan ambience Web Audio optional yang default OFF.

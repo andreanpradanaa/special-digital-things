@@ -198,6 +198,7 @@
   margin: 0;
   color: var(--workshop-ink);
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 .orderFooter {
@@ -216,6 +217,7 @@
   font-size: 0.65rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .arrivalBench,
@@ -759,6 +761,58 @@
   min-height: 22rem;
 }
 
+.revealServiceReceipt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  width: fit-content;
+  max-width: 100%;
+  gap: 0.12rem 0.45rem;
+  margin: var(--space-4) 0;
+  border: 1px solid #7d574f;
+  background: #fff5df;
+  box-shadow: 0.16rem 0.18rem 0 rgb(81 49 43 / 16%);
+  color: #56413f;
+  padding: 0.48rem 0.55rem;
+  transform: rotate(1.5deg);
+}
+
+.revealReceiptKicker,
+.revealReceiptTreatment,
+.revealReceiptStatus {
+  margin: 0;
+}
+
+.revealReceiptKicker {
+  color: #8a665d;
+  font-family: var(--font-utility);
+  font-size: 0.55rem;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.revealReceiptTreatment {
+  font-family: var(--font-utility);
+  font-size: 0.68rem;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+.revealReceiptKicker::after,
+.revealReceiptTreatment::after {
+  color: #b18c74;
+  content: '•';
+  margin-left: 0.45rem;
+}
+
+.revealReceiptStatus {
+  color: #3f6b65;
+  font-size: 0.68rem;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
 .personalLetter {
   transform: rotate(-0.7deg);
 }
@@ -767,6 +821,8 @@
   color: #594845;
   font-size: clamp(1.12rem, 2.4vw, 1.38rem);
   line-height: 1.65;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .signature {
@@ -807,6 +863,15 @@
 .warranty {
   font-size: var(--font-size-base);
   line-height: 1.6;
+}
+
+.certificateNote {
+  margin: var(--space-4) 0 0;
+  color: #705c5a;
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .certificateStamp {
@@ -883,6 +948,7 @@
   .serviceStamp,
   .arrivalTag,
   .revealTape,
+  .revealServiceReceipt,
   .certificateStamp,
   .diagnosisTag,
   .primaryAction:hover,

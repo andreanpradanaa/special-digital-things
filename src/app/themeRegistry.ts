@@ -1,6 +1,6 @@
 export type ThemeMetadata = {
-  id: 'unsaid-garden' | 'heart-repair' | 'lost-and-found' | 'midnight-radio'
-  path: '/unsaid-garden' | '/heart-repair' | '/lost-and-found' | '/midnight-radio'
+  id: 'secret-message-machine' | 'unsaid-garden' | 'heart-repair' | 'lost-and-found' | 'midnight-radio'
+  path: '/secret-message-machine' | '/unsaid-garden' | '/heart-repair' | '/lost-and-found' | '/midnight-radio'
   title: string
   summary: string
   previewAction: string
@@ -10,13 +10,22 @@ export type ThemeMetadata = {
 
 export const themeRegistry = [
   {
+    id: 'secret-message-machine',
+    path: '/secret-message-machine',
+    title: 'Secret Message Machine',
+    summary: 'Sebuah mesin kecil untuk kata-kata yang hampir terucap.',
+    previewAction: 'Putar satu pesan',
+    placeholderMessage: 'Mesin pesan kecil Andre untuk Gusti sudah tersedia.',
+    placement: 'featured',
+  },
+  {
     id: 'unsaid-garden',
     path: '/unsaid-garden',
     title: 'The Unsaid Garden',
     summary: 'Sebuah rumah kaca kecil untuk kata-kata yang membutuhkan waktu sebelum berani mekar.',
     previewAction: 'Masuk ke rumah kaca',
-    placeholderMessage: 'Rumah kaca kecil Ari untuk Nara sudah tersedia.',
-    placement: 'featured',
+    placeholderMessage: 'Rumah kaca kecil Andre untuk Gusti sudah tersedia.',
+    placement: 'shelf',
   },
   {
     id: 'heart-repair',
@@ -26,7 +35,7 @@ export const themeRegistry = [
       'Untuk hari yang terasa terlalu berat dan hati yang membutuhkan sedikit perawatan.',
     previewAction: 'Masuk ke bengkel',
     placeholderMessage:
-      'Ruang untuk pengalaman bengkel hati Ari dan Nara sudah tersedia. Pengalaman interaktifnya akan dibuat pada milestone berikutnya.',
+      'Ruang untuk pengalaman bengkel hati Andre dan Gusti sudah tersedia. Pengalaman interaktifnya akan dibuat pada milestone berikutnya.',
     placement: 'shelf',
   },
   {

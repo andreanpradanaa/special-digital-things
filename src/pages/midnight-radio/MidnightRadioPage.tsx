@@ -56,11 +56,11 @@ function useRadioAmbience() {
 }
 
 const phaseAnnouncements = {
-  arrival: 'Radio pribadi untuk Nara dalam keadaan mati. Jam menunjukkan 11:08 PM.',
+  arrival: 'Radio pribadi untuk Gusti dalam keadaan mati. Jam menunjukkan 11:08 PM.',
   tuning: 'Radio menyala. Cari sinyal pertama pada skala frekuensi.',
   fragment: 'Satu potongan siaran telah diterima.',
   'private-unlock': 'PRIVATE 11:11 telah terbuka.',
-  'final-broadcast': 'Pesan pribadi Ari untuk Nara sedang mengudara.',
+  'final-broadcast': 'Pesan pribadi Andre untuk Gusti sedang mengudara.',
   qsl: 'Kartu QSL penerimaan siaran sudah siap disimpan.',
 } as const
 
@@ -130,7 +130,7 @@ function SceneTitle({ children, focus = true }: { children: ReactNode; focus?: b
 }
 
 function Arrival({ onPower }: { onPower: () => void }) {
-  return <div className={styles.arrival}><div className={styles.arrivalCopy}><p className={styles.kicker}>PRIVATE BROADCAST / FOR NARA</p><SceneTitle focus={false}>Ada satu siaran yang hanya muncul saat dunia sudah tenang.</SceneTitle><p className={styles.body}>Tiga sinyal kecil sedang mencari jalan menuju pukul 11:11.</p><button className={styles.primaryAction} type="button" onClick={onPower}>Nyalakan radio <span aria-hidden="true">→</span></button></div><div className={styles.radioStage}><RadioConsole frequency="88.0" time="11:08 PM" status="STATIC" powered={false} receivedCount={0} /><p className={styles.offLabel}>SPEAKER / SILENT</p></div></div>
+  return <div className={styles.arrival}><div className={styles.arrivalCopy}><p className={styles.kicker}>PRIVATE BROADCAST / FOR GUSTI</p><SceneTitle focus={false}>Ada satu siaran yang hanya muncul saat dunia sudah tenang.</SceneTitle><p className={styles.body}>Tiga sinyal kecil sedang mencari jalan menuju pukul 11:11.</p><button className={styles.primaryAction} type="button" onClick={onPower}>Nyalakan radio <span aria-hidden="true">→</span></button></div><div className={styles.radioStage}><RadioConsole frequency="88.0" time="11:08 PM" status="STATIC" powered={false} receivedCount={0} /><p className={styles.offLabel}>SPEAKER / SILENT</p></div></div>
 }
 
 function Tuning({ state, broadcast, status, onFrequency, onCapture, onAudio }: { state: Exclude<ReturnType<typeof midnightRadioReducer>, { phase: 'arrival' }>; broadcast: ReturnType<typeof getBroadcast> | null; status: ReturnType<typeof getSignalStatus>; onFrequency: (frequency: number) => void; onCapture: () => void; onAudio: () => void }) {
@@ -154,9 +154,9 @@ function PrivateUnlock({ onOpen }: { onOpen: () => void }) {
 }
 
 function FinalBroadcast({ onConfirm }: { onConfirm: () => void }) {
-  return <div className={styles.finalScene}><div className={styles.radioStage}><RadioConsole frequency="11:11" time="11:11 PM" status="SIGNAL LOCKED" powered privateChannel onAir receivedCount={3} /><Waveform active /></div><article className={styles.finalPaper}><p className={styles.kicker}>LIVE AT 11:11 / ARI TO NARA</p><SceneTitle>Untuk satu orang yang membuat malam terasa lebih dekat.</SceneTitle><p className={styles.transcript}>“Nara, kalau malam ini terasa terlalu sunyi, anggap saja ini caraku duduk di sebelahmu. Di antara semua suara di dunia, kamu tetap menjadi yang paling ingin kudengar.”</p><p className={styles.signature}>— Ari</p><button className={styles.primaryAction} type="button" onClick={onConfirm}>Konfirmasi pesan diterima <span aria-hidden="true">→</span></button></article></div>
+  return <div className={styles.finalScene}><div className={styles.radioStage}><RadioConsole frequency="11:11" time="11:11 PM" status="SIGNAL LOCKED" powered privateChannel onAir receivedCount={3} /><Waveform active /></div><article className={styles.finalPaper}><p className={styles.kicker}>LIVE AT 11:11 / ANDRE TO GUSTI</p><SceneTitle>Untuk satu orang yang membuat malam terasa lebih dekat.</SceneTitle><p className={styles.transcript}>“Gusti, kalau malam ini terasa terlalu sunyi, anggap saja ini caraku duduk di sebelahmu. Di antara semua suara di dunia, kamu tetap menjadi yang paling ingin kudengar.”</p><p className={styles.signature}>— Andre</p><button className={styles.primaryAction} type="button" onClick={onConfirm}>Konfirmasi pesan diterima <span aria-hidden="true">→</span></button></article></div>
 }
 
 function QslCard({ onReplay }: { onReplay: () => void }) {
-  return <div className={styles.qslScene}><article className={styles.qslCard}><p className={styles.kicker}>MIDNIGHT RADIO QSL</p><SceneTitle>Pesan diterima.</SceneTitle><dl><div><dt>RECEIVER</dt><dd>Nara</dd></div><div><dt>SENDER</dt><dd>Ari</dd></div><div><dt>TIME</dt><dd>23:11</dd></div><div><dt>CHANNEL</dt><dd>PRIVATE 11:11</dd></div><div><dt>SIGNALS RECEIVED</dt><dd>3 + 1 dedication</dd></div><div><dt>RECEPTION</dt><dd>STRONG &amp; CLEAR</dd></div></dl><span className={styles.messageStamp}>MESSAGE RECEIVED</span><p className={styles.closingLine}>Some messages travel farther at night.</p></article><div className={styles.qslActions}><button className={styles.primaryAction} type="button" onClick={onReplay}>Putar ulang siaran</button><Link className={styles.collectionLink} to="/">Kembali ke koleksi</Link></div></div>
+  return <div className={styles.qslScene}><article className={styles.qslCard}><p className={styles.kicker}>MIDNIGHT RADIO QSL</p><SceneTitle>Pesan diterima.</SceneTitle><dl><div><dt>RECEIVER</dt><dd>Gusti</dd></div><div><dt>SENDER</dt><dd>Andre</dd></div><div><dt>TIME</dt><dd>23:11</dd></div><div><dt>CHANNEL</dt><dd>PRIVATE 11:11</dd></div><div><dt>SIGNALS RECEIVED</dt><dd>3 + 1 dedication</dd></div><div><dt>RECEPTION</dt><dd>STRONG &amp; CLEAR</dd></div></dl><span className={styles.messageStamp}>MESSAGE RECEIVED</span><p className={styles.closingLine}>Some messages travel farther at night.</p></article><div className={styles.qslActions}><button className={styles.primaryAction} type="button" onClick={onReplay}>Putar ulang siaran</button><Link className={styles.collectionLink} to="/">Kembali ke koleksi</Link></div></div>
 }

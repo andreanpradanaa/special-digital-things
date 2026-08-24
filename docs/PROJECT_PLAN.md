@@ -4,7 +4,7 @@
 
 Membangun prototype mobile-first berisi tiga interactive digital gifts dalam satu web application. Target pengguna adalah orang yang ingin mengirim hadiah digital yang lucu, romantis, personal, dan lebih berkesan daripada kartu statis.
 
-Sample gift memakai pengirim **Ari** dan penerima **Nara**.
+Sample gift memakai pengirim **Andre** dan penerima **Gusti**.
 
 ## Koleksi tema
 
@@ -12,6 +12,7 @@ Sample gift memakai pengirim **Ari** dan penerima **Nara**.
 2. **The Things You Left With Me** — claim ticket membuka laci-laci berisi benda metaforis dan berakhir pada sesuatu yang tidak dapat dikembalikan: hati pengirim.
 3. **11:11 Midnight Radio** — radio analog rahasia membuka pesan pada beberapa frekuensi dan final reveal pada `11:11`.
 4. **The Unsaid Garden** — rumah kaca kecil menumbuhkan tiga kata tersegel menjadi folio pressed-flower.
+5. **Secret Message Machine** — mesin kapsul handmade yang melepas satu pesan rahasia tiap putaran knob.
 
 ## Non-goals MVP
 
@@ -44,8 +45,9 @@ Sample gift memakai pengirim **Ari** dan penerima **Nara**.
 4. **The Things You Left With Me — completed.** Pengalaman kedua end-to-end tersedia pada `/lost-and-found` dan telah melewati review visual.
 5. **11:11 Midnight Radio — completed.** Pengalaman ketiga end-to-end tersedia pada `/midnight-radio` dan telah melewati review visual.
 6. **The Unsaid Garden — implemented, awaiting visual review.** Pengalaman keempat tersedia pada `/unsaid-garden`.
-7. **Asset integration dan interaction polish**.
-8. **Cross-browser, accessibility, responsive, dan final regression**.
+7. **Secret Message Machine — implemented, awaiting visual review.** Pengalaman kelima tersedia pada `/secret-message-machine`; item ini menjadi featured pertama di gallery tanpa menghapus Garden.
+8. **Asset integration dan interaction polish**.
+9. **Cross-browser, accessibility, responsive, dan final regression**.
 
 Milestone tidak dilanjutkan sebelum milestone aktif dapat dijalankan, dilihat, diuji, dan direview.
 
@@ -129,7 +131,7 @@ Milestone tidak dilanjutkan sebelum milestone aktif dapat dijalankan, dilihat, d
 
 - Garden memakai reducer typed dengan phase `arrival`, `choosing`, `planting`, `tending`, `bloom`, dan `herbarium`. Lima seed records adalah sumber tunggal label, visual key, accessible description, accent, dan message; tiga pilihan pertama yang dipreservasi membentuk folio akhir secara deterministic.
 - Ritualnya adalah membuka rumah kaca, memilih envelope benih tersegel, menanam ke soil bed, memberi air dan cahaya dalam urutan bebas, lalu menyimpan botanical specimen. Konsep ini secara sengaja tidak memakai capsule, coin slot, price label, mesin, crank/dial, atau modal pesan generik.
-- Featured garden ditempatkan pertama pada `themeRegistry`, DOM, dan keyboard order. Gallery desktop membentuk upper display bay di atas lower keepsake shelf lama; mobile menampilkan greenhouse lalu tiga preview lama secara vertikal tanpa CSS ordering terpisah.
+- Garden tetap tersedia sebagai item shelf pertama setelah Secret Message Machine. Urutan registry, DOM, dan keyboard mengikuti urutan visual tanpa CSS ordering terpisah.
 - Planting mempunyai pointer drag menuju soil bed dengan tombol native `Tanam benih ini` sebagai alternatif yang memanggil reducer transition sama. Care action memakai native button + `aria-pressed`; bloom dan herbarium hanya tersedia setelah guard state terpenuhi.
 - Visual route-scoped memakai forest green, soil umber, brass, warm botanical paper, dan pale-glass blue. Message keluar sebagai botanical label di dekat batang; herbarium memakai open pressed-flower folio, bukan certificate, receipt, atau QSL.
 
@@ -137,6 +139,20 @@ Milestone tidak dilanjutkan sebelum milestone aktif dapat dijalankan, dilihat, d
 
 - SVG/CSS flower adalah interpretasi material MVP. Perangkat sentuh nyata perlu memvalidasi luas target drag planting; tombol alternatif tetap membuat flow lengkap tanpa pointer.
 - Screenshot berada pada `artifacts/milestone-6/`. Nama viewport menunjukkan ukuran viewport capture; file full-page dapat lebih tinggi daripada angka nama.
+
+## Keputusan Secret Message Machine Milestone 6
+
+- Secret Message Machine menggunakan reducer typed dengan fase `idle`, `turning`, `dispensing`, `capsule-ready`, dan `revealing`. Completion membawa `cycleId`, sehingga completion animasi usang tidak bisa melompati cycle baru.
+- Delapan pesan original berada dalam content typed; `shuffleMessageIds` adalah fungsi Fisher–Yates pure dengan RNG yang dapat diinjeksi. Satu deck dihabiskan tanpa pengulangan sebelum deck baru dibuat.
+- Knob memiliki pointer capture untuk gerakan melingkar dan tombol native `Putar knob` yang memanggil action reducer sama. Output compartment adalah tombol native yang hanya aktif saat kapsul siap.
+- Reveal memakai native `<dialog>` berbentuk catatan kecil dari kapsul. Escape maupun tombol close mengembalikan fokus ke control turn dan mengembalikan mesin ke idle.
+- Secret Message Machine adalah featured pertama pada registry, DOM, dan keyboard order. The Unsaid Garden tetap ada sebagai objek shelf pertama; total koleksi berjumlah lima experience. Tidak ada CSS `order` yang membedakan urutan visual/semantic.
+- Visual memakai casing lilac, panel butter, mint, outline plum, kapsul CSS, dan decal CSS/SVG original. Tidak ada asset eksternal, font remote, pembayaran, atau produk referensi.
+
+## Risiko dan artefak Secret Message Machine
+
+- Urutan shuffle sengaja tidak terlihat sebagai randomness yang dapat diuji pengguna; yang dijamin adalah satu pesan unik per cycle sampai delapan pesan habis. Pengujian perangkat nyata tetap perlu memastikan ambang rotasi knob nyaman.
+- Screenshot Secret Message Machine disimpan pada `artifacts/milestone-6/`; nama viewport menandai ukuran viewport capture dan file full-page dapat lebih tinggi.
 
 ## Definition of done Milestone 1
 

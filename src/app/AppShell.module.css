@@ -63,6 +63,10 @@
   padding-block: var(--space-5);
 }
 
+.footer p {
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 30rem) {
   .header {
     min-height: 4rem;

@@ -31,6 +31,27 @@ const heartFlows = [
   },
 ] as const
 
+const heartRepairGift = {
+  recipientName: 'Rani',
+  senderName: 'Dimas',
+  personalMessage:
+    'Terima kasih sudah bertahan hari ini. Tidak semua hal harus kamu selesaikan sendiri; aku tetap ada untukmu.',
+  signature: 'Dimas',
+  certificateNote: 'Simpan surat kecil ini saat kamu membutuhkan pengingat.',
+  occasionLabel: 'Untuk hari yang berat',
+} as const
+
+const alternateHeartRepairGift = {
+  giftId: 'e2e-heart-repair-002',
+  recipientName: 'Naya Pramesti',
+  senderName: 'Raka Wirawan',
+  personalMessage:
+    'Kalau hari ini terasa panjang, kamu tidak perlu membawanya sendirian. Aku bangga melihatmu tetap berjalan.',
+  signature: 'Selalu, Raka',
+  certificateNote: 'Buka kembali saat kamu ingin diingatkan bahwa kamu ditemani.',
+  occasionLabel: 'Untuk hari pertama di tempat baru',
+} as const
+
 function collectPageErrors(page: Page) {
   const errors: string[] = []
 
@@ -95,14 +116,32 @@ async function openRepairBay(
 async function completeWithKeyboardAlternative(
   page: Page,
   flow: (typeof heartFlows)[number],
+  gift = heartRepairGift,
 ) {
   await page.getByRole('button', { name: `Gunakan ${flow.tool}` }).click()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(flow.reveal)
+  await expect(page.getByTestId('reveal-success-confirmation')).toContainText(
+    'Repair selesai',
+  )
+  await expect(page.getByTestId('reveal-success-confirmation')).toContainText(flow.tool)
+  await expect(page.getByTestId('reveal-success-confirmation')).toContainText(
+    'Handled with care',
+  )
+  await expect(page.getByTestId('reveal-success-confirmation')).toContainText(
+    gift.recipientName,
+  )
+  await expect(page.getByTestId('reveal-success-confirmation')).toBeInViewport()
+  await expect(page.getByText(gift.personalMessage, { exact: true })).toBeVisible()
+  await expect(page.getByText(`— ${gift.signature}`, { exact: true })).toBeVisible()
   await page.getByRole('button', { name: /Lihat care certificate/ }).click()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Servis kecil selesai.',
   )
   await expect(page.getByText(flow.certificate, { exact: true })).toBeVisible()
+  await expect(page.getByText(gift.recipientName, { exact: true })).toBeVisible()
+  await expect(page.getByText(gift.senderName, { exact: true })).toBeVisible()
+  await expect(page.getByText(gift.certificateNote, { exact: true })).toBeVisible()
+  await expect(page.getByText(gift.occasionLabel, { exact: true })).toBeVisible()
 }
 
 test('direct navigation menampilkan work order tanpa console error', async ({
@@ -116,8 +155,68 @@ test('direct navigation menampilkan work order tanpa console error', async ({
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Ada satu hati yang perlu sedikit dirawat.',
   )
-  await expect(page.getByText('From Ari, for Nara')).toBeVisible()
+  await expect(
+    page.getByText(
+      `From ${heartRepairGift.senderName}, for ${heartRepairGift.recipientName}`,
+    ),
+  ).toBeVisible()
+  await expect(
+    page.getByText(
+      `Hadiah digital dari ${heartRepairGift.senderName} untuk ${heartRepairGift.recipientName}.`,
+    ),
+  ).toBeVisible()
+  await expect(page.getByText('Andre', { exact: true })).toHaveCount(0)
+  await expect(page.getByText('Gusti', { exact: true })).toHaveCount(0)
   expect(errors).toEqual([])
+})
+
+test('direct navigation tidak memfokuskan heading work order dan Tab pertama menuju skip link', async ({
+  page,
+}) => {
+  await page.goto('/heart-repair')
+
+  const workOrderHeading = page.getByRole('heading', {
+    level: 1,
+    name: 'Ada satu hati yang perlu sedikit dirawat.',
+  })
+
+  await expect(workOrderHeading).not.toBeFocused()
+  await expectSkipLinkHidden(page)
+
+  await page.keyboard.press('Tab')
+  await expect(skipLink(page)).toBeFocused()
+  await expectSkipLinkVisible(page)
+})
+
+test('configuration personal mengalir ke setiap scene tanpa mengunci treatment recipient', async ({
+  page,
+}) => {
+  await page.addInitScript((gift) => {
+    window.__HEART_REPAIR_GIFT_CONFIGURATION__ = gift
+  }, alternateHeartRepairGift)
+
+  await page.goto('/heart-repair')
+  await expect(
+    page.getByText(
+      `From ${alternateHeartRepairGift.senderName}, for ${alternateHeartRepairGift.recipientName}`,
+    ),
+  ).toBeVisible()
+  await expect(
+    page.getByText(
+      `Hadiah digital dari ${alternateHeartRepairGift.senderName} untuk ${alternateHeartRepairGift.recipientName}.`,
+    ),
+  ).toBeVisible()
+
+  await page.getByRole('button', { name: /Mulai pemeriksaan/ }).click()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Bagian mana yang terasa paling berat hari ini?',
+  )
+
+  await openRepairBay(page, heartFlows[0])
+  await completeWithKeyboardAlternative(page, heartFlows[0], alternateHeartRepairGift)
+  await expect(page.getByText(heartFlows[0].certificate, { exact: true })).toBeVisible()
+  await expect(page.getByText(heartRepairGift.recipientName, { exact: true })).toHaveCount(0)
+  await expect(page.getByText(heartRepairGift.senderName, { exact: true })).toHaveCount(0)
 })
 
 test('skip link hanya terlihat saat mendapat focus keyboard dan memindahkan focus ke main', async ({
@@ -255,7 +354,49 @@ test('drag alat ke target menyelesaikan perbaikan', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     heartFlows[2].reveal,
   )
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused()
+  await expect(page.getByTestId('reveal-success-confirmation')).toContainText(
+    heartFlows[2].tool,
+  )
+  await expect(page.getByTestId('reveal-success-confirmation')).toContainText(
+    'Handled with care',
+  )
+  await expect(page.getByTestId('reveal-success-confirmation')).toBeInViewport()
+  await expectSkipLinkHidden(page)
 })
+
+for (const replayActivation of ['pointer', 'keyboard'] as const) {
+  test(`replay dengan ${replayActivation} memfokuskan work order tanpa menampilkan skip link`, async ({
+    page,
+  }) => {
+    await startInspection(page)
+    await openRepairBay(page, heartFlows[0])
+    await completeWithKeyboardAlternative(page, heartFlows[0])
+
+    const replayButton = page.getByRole('button', { name: 'Ulangi pengalaman' })
+
+    if (replayActivation === 'pointer') {
+      await replayButton.click()
+    } else {
+      await replayButton.focus()
+      await page.keyboard.press('Enter')
+    }
+
+    const workOrderHeading = page.getByRole('heading', {
+      level: 1,
+      name: 'Ada satu hati yang perlu sedikit dirawat.',
+    })
+
+    await expect(workOrderHeading).toBeVisible()
+    await expect(workOrderHeading).toBeFocused()
+    await expect(
+      page.getByText(
+        `From ${heartRepairGift.senderName}, for ${heartRepairGift.recipientName}`,
+      ),
+    ).toBeVisible()
+    await expectSkipLinkHidden(page)
+  })
+}
 
 test('replay mengembalikan work order dan link koleksi serta browser Back bekerja', async ({
   page,
@@ -268,6 +409,7 @@ test('replay mengembalikan work order dan link koleksi serta browser Back bekerj
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Ada satu hati yang perlu sedikit dirawat.',
   )
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused()
 
   await page.getByRole('link', { name: 'Kembali ke koleksi' }).first().click()
   await expect(page).toHaveURL('/')
@@ -303,12 +445,64 @@ test('focus indicator dan SVG dekoratif tetap accessible', async ({ page }) => {
   await expect(page.getByRole('img')).toHaveCount(0)
 })
 
-test('reduced motion tidak menyembunyikan flow', async ({ page }) => {
+test('reduced motion langsung membuka reveal dengan confirmation repair yang terlihat', async ({
+  page,
+}) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await startInspection(page)
   await openRepairBay(page, heartFlows[2])
-  await completeWithKeyboardAlternative(page, heartFlows[2])
+
+  await page.getByRole('button', { name: `Gunakan ${heartFlows[2].tool}` }).click()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    heartFlows[2].reveal,
+  )
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused()
+  await expect(page.getByTestId('reveal-success-confirmation')).toContainText(
+    'Repair selesai',
+  )
+  await expect(page.getByTestId('reveal-success-confirmation')).toContainText(
+    heartFlows[2].tool,
+  )
+  await expect(page.getByTestId('reveal-success-confirmation')).toContainText(
+    'Handled with care',
+  )
+  await expect(page.getByTestId('reveal-success-confirmation')).toBeInViewport()
+  await expectSkipLinkHidden(page)
+
+  await page.getByRole('button', { name: /Lihat care certificate/ }).click()
+
+  await page.getByRole('button', { name: 'Ulangi pengalaman' }).click()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Ada satu hati yang perlu sedikit dirawat.',
+  )
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused()
+  await expectSkipLinkHidden(page)
 })
+
+for (const viewport of [
+  { width: 390, height: 844 },
+  { width: 1280, height: 800 },
+]) {
+  test(`reveal confirmation tidak membuat overflow pada ${viewport.width}x${viewport.height}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport)
+    await startInspection(page)
+    await openRepairBay(page, heartFlows[2])
+    await page.getByRole('button', { name: `Gunakan ${heartFlows[2].tool}` }).click()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      heartFlows[2].reveal,
+    )
+    await expect(page.getByTestId('reveal-success-confirmation')).toBeVisible()
+    await expect(page.getByTestId('reveal-success-confirmation')).toBeInViewport()
+
+    const hasOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    )
+
+    expect(hasOverflow, `Overflow pada reveal ${viewport.width}px`).toBe(false)
+  })
+}
 
 test('tidak ada horizontal overflow pada viewport yang didukung', async ({ page }) => {
   const viewports = [

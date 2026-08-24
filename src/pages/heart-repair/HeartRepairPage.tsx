@@ -3,6 +3,7 @@ import {
   useLayoutEffect,
   useReducer,
   useRef,
+  useState,
   type ReactNode,
   type RefObject,
 } from 'react'
@@ -17,25 +18,46 @@ import {
   heartRepairReducer,
   initialHeartRepairState,
 } from './heartRepairReducer.ts'
+import {
+  type HeartRepairGiftConfiguration,
+  getHeartRepairGiftConfiguration,
+} from './heartRepairGift.ts'
 import { HeartCharacter, ToolVisual } from './HeartRepairVisuals.tsx'
 import styles from './HeartRepairPage.module.css'
 
-const phaseAnnouncements = {
-  arrival: 'Work order hati Nara siap diperiksa.',
+function getPhaseAnnouncements(gift: HeartRepairGiftConfiguration) {
+  return {
+  arrival: `Work order hati ${gift.recipientName} siap diperiksa.`,
   diagnosis: 'Pemeriksaan dimulai. Pilih kondisi yang paling mendekati.',
   prescription: 'Diagnosis selesai. Alat yang direkomendasikan sudah ditemukan.',
   repairing: 'Meja perbaikan siap digunakan.',
-  reveal: 'Pesan pribadi dari Ari sudah terbuka.',
+  reveal: `Pesan pribadi dari ${gift.senderName} sudah terbuka.`,
   certificate: 'Care certificate siap disimpan.',
-} as const
+  } as const
+}
 
-export function HeartRepairPage() {
+export function HeartRepairRoute() {
+  return <HeartRepairPage gift={getHeartRepairGiftConfiguration()} />
+}
+
+type HeartRepairPageProps = {
+  gift: HeartRepairGiftConfiguration
+}
+
+export function HeartRepairPage({ gift }: HeartRepairPageProps) {
   const [state, dispatch] = useReducer(heartRepairReducer, initialHeartRepairState)
   const shouldReduceMotion = useReducedMotion()
   const phaseHeadingRef = useRef<HTMLHeadingElement>(null)
   const repairTargetRef = useRef<HTMLDivElement>(null)
+  const [shouldFocusArrival, setShouldFocusArrival] = useState(false)
   const condition =
     state.conditionId === null ? null : getHeartCondition(state.conditionId)
+  const phaseAnnouncements = getPhaseAnnouncements(gift)
+
+  const replayExperience = () => {
+    setShouldFocusArrival(true)
+    dispatch({ type: 'RESET' })
+  }
 
   useEffect(() => {
     if (state.phase !== 'repairing' || state.repairStatus !== 'succeeded') {
@@ -69,7 +91,7 @@ export function HeartRepairPage() {
 
       <p className="visually-hidden" aria-atomic="true" aria-live="polite">
         {state.phase === 'repairing' && state.repairStatus === 'succeeded'
-          ? 'Perbaikan berhasil. Pesan Ari sedang dibuka.'
+          ? `Perbaikan berhasil. Pesan ${gift.senderName} sedang dibuka.`
           : phaseAnnouncements[state.phase]}
       </p>
 
@@ -83,8 +105,11 @@ export function HeartRepairPage() {
             transition={{ duration: 0.28, ease: 'easeOut' }}
           >
             <ArrivalScene
+              gift={gift}
               headingRef={phaseHeadingRef}
               onStart={() => dispatch({ type: 'START_INSPECTION' })}
+              shouldFocus={shouldFocusArrival}
+              onFocusApplied={() => setShouldFocusArrival(false)}
             />
           </motion.div>
         ) : null}
@@ -116,6 +141,7 @@ export function HeartRepairPage() {
           >
             <PrescriptionScene
               condition={condition}
+              recipientName={gift.recipientName}
               headingRef={phaseHeadingRef}
               onStartRepair={() => dispatch({ type: 'START_REPAIR' })}
             />
@@ -132,6 +158,7 @@ export function HeartRepairPage() {
           >
             <RepairScene
               condition={condition}
+              recipientName={gift.recipientName}
               headingRef={phaseHeadingRef}
               isRepaired={state.repairStatus === 'succeeded'}
               onComplete={() => dispatch({ type: 'COMPLETE_REPAIR' })}
@@ -150,6 +177,7 @@ export function HeartRepairPage() {
           >
             <RevealScene
               condition={condition}
+              gift={gift}
               headingRef={phaseHeadingRef}
               onOpenCertificate={() => dispatch({ type: 'OPEN_CERTIFICATE' })}
             />
@@ -165,8 +193,9 @@ export function HeartRepairPage() {
           >
             <CertificateScene
               condition={condition}
+              gift={gift}
               headingRef={phaseHeadingRef}
-              onReplay={() => dispatch({ type: 'RESET' })}
+              onReplay={replayExperience}
             />
           </motion.div>
         ) : null}
@@ -180,6 +209,7 @@ type SceneHeadingProps = {
   headingRef: RefObject<HTMLHeadingElement | null>
   children: ReactNode
   shouldFocus?: boolean
+  onFocusApplied?: () => void
 }
 
 function SceneHeading({
@@ -187,12 +217,14 @@ function SceneHeading({
   headingRef,
   children,
   shouldFocus = false,
+  onFocusApplied,
 }: SceneHeadingProps) {
   useLayoutEffect(() => {
     if (shouldFocus) {
       headingRef.current?.focus({ preventScroll: true })
+      onFocusApplied?.()
     }
-  }, [headingRef, shouldFocus])
+  }, [headingRef, onFocusApplied, shouldFocus])
 
   return (
     <h1 className={styles.sceneHeading} id={id} ref={headingRef} tabIndex={-1}>
@@ -202,16 +234,30 @@ function SceneHeading({
 }
 
 type ArrivalSceneProps = {
+  gift: HeartRepairGiftConfiguration
   headingRef: RefObject<HTMLHeadingElement | null>
   onStart: () => void
+  shouldFocus: boolean
+  onFocusApplied: () => void
 }
 
-function ArrivalScene({ headingRef, onStart }: ArrivalSceneProps) {
+function ArrivalScene({
+  gift,
+  headingRef,
+  onStart,
+  shouldFocus,
+  onFocusApplied,
+}: ArrivalSceneProps) {
   return (
     <div className={styles.arrivalScene}>
       <article className={styles.workOrder} aria-labelledby="arrival-heading">
         <p className={styles.paperKicker}>Heart care work order</p>
-        <SceneHeading headingRef={headingRef} id="arrival-heading">
+        <SceneHeading
+          headingRef={headingRef}
+          id="arrival-heading"
+          shouldFocus={shouldFocus}
+          onFocusApplied={onFocusApplied}
+        >
           Ada satu hati yang perlu sedikit dirawat.
         </SceneHeading>
         <p className={styles.sceneBody}>
@@ -222,11 +268,11 @@ function ArrivalScene({ headingRef, onStart }: ArrivalSceneProps) {
         <dl className={styles.orderDetails}>
           <div>
             <dt>Pemilik hati</dt>
-            <dd>Nara</dd>
+            <dd>{gift.recipientName}</dd>
           </div>
           <div>
             <dt>Dikirim oleh</dt>
-            <dd>Ari</dd>
+            <dd>{gift.senderName}</dd>
           </div>
           <div>
             <dt>Status</dt>
@@ -235,7 +281,9 @@ function ArrivalScene({ headingRef, onStart }: ArrivalSceneProps) {
         </dl>
 
         <div className={styles.orderFooter}>
-          <span className={styles.serviceStamp}>From Ari, for Nara</span>
+          <span className={styles.serviceStamp}>
+            From {gift.senderName}, for {gift.recipientName}
+          </span>
           <button className={styles.primaryAction} type="button" onClick={onStart}>
             Mulai pemeriksaan <span aria-hidden="true">→</span>
           </button>
@@ -250,7 +298,7 @@ function ArrivalScene({ headingRef, onStart }: ArrivalSceneProps) {
           <span />
           <span />
         </div>
-        <HeartCharacter />
+        <HeartCharacter recipientName={gift.recipientName} />
         <span className={styles.arrivalTag}>SERVICE 11:11</span>
       </div>
     </div>
@@ -298,12 +346,14 @@ function DiagnosisScene({ headingRef, onSelect }: DiagnosisSceneProps) {
 
 type PrescriptionSceneProps = {
   condition: HeartCondition
+  recipientName: string
   headingRef: RefObject<HTMLHeadingElement | null>
   onStartRepair: () => void
 }
 
 function PrescriptionScene({
   condition,
+  recipientName,
   headingRef,
   onStartRepair,
 }: PrescriptionSceneProps) {
@@ -332,7 +382,7 @@ function PrescriptionScene({
         data-tool={condition.prescription.visualKey}
       >
         <ToolVisual visualKey={condition.prescription.visualKey} />
-        <span>Alat untuk Nara</span>
+        <span>Alat untuk {recipientName}</span>
       </div>
     </div>
   )
@@ -340,6 +390,7 @@ function PrescriptionScene({
 
 type RepairSceneProps = {
   condition: HeartCondition
+  recipientName: string
   headingRef: RefObject<HTMLHeadingElement | null>
   isRepaired: boolean
   onComplete: () => void
@@ -348,6 +399,7 @@ type RepairSceneProps = {
 
 function RepairScene({
   condition,
+  recipientName,
   headingRef,
   isRepaired,
   onComplete,
@@ -403,6 +455,7 @@ function RepairScene({
         </div>
         <HeartCharacter
           condition={condition}
+          recipientName={recipientName}
           repaired={isRepaired}
           targetRef={targetRef}
         />
@@ -464,28 +517,45 @@ function RepairScene({
 
 type RevealSceneProps = {
   condition: HeartCondition
+  gift: HeartRepairGiftConfiguration
   headingRef: RefObject<HTMLHeadingElement | null>
   onOpenCertificate: () => void
 }
 
 function RevealScene({
   condition,
+  gift,
   headingRef,
   onOpenCertificate,
 }: RevealSceneProps) {
   return (
     <div className={styles.revealScene}>
-      <div className={styles.revealWorkbench} aria-hidden="true">
-        <HeartCharacter condition={condition} repaired />
-        <span className={styles.revealTape}>OPENED GENTLY</span>
+      <div className={styles.revealWorkbench}>
+        <HeartCharacter
+          condition={condition}
+          recipientName={gift.recipientName}
+          repaired
+        />
+        <span aria-hidden="true" className={styles.revealTape}>
+          OPENED GENTLY
+        </span>
       </div>
       <article className={styles.personalLetter}>
         <p className={styles.paperKicker}>Pesan dari workbench</p>
         <SceneHeading headingRef={headingRef} shouldFocus>
           {condition.reveal.heading}
         </SceneHeading>
-        <p className={styles.letterBody}>{condition.reveal.body}</p>
-        <p className={styles.signature}>— Ari</p>
+        <div className={styles.revealServiceReceipt} data-testid="reveal-success-confirmation">
+          <p className={styles.revealReceiptKicker}>Repair selesai</p>
+          <p className={styles.revealReceiptTreatment}>
+            {condition.prescription.toolName}
+          </p>
+          <p className={styles.revealReceiptStatus}>
+            Handled with care for {gift.recipientName}
+          </p>
+        </div>
+        <p className={styles.letterBody}>{gift.personalMessage}</p>
+        <p className={styles.signature}>— {gift.signature}</p>
         <button className={styles.primaryAction} type="button" onClick={onOpenCertificate}>
           Lihat care certificate <span aria-hidden="true">→</span>
         </button>
@@ -496,12 +566,14 @@ function RevealScene({
 
 type CertificateSceneProps = {
   condition: HeartCondition
+  gift: HeartRepairGiftConfiguration
   headingRef: RefObject<HTMLHeadingElement | null>
   onReplay: () => void
 }
 
 function CertificateScene({
   condition,
+  gift,
   headingRef,
   onReplay,
 }: CertificateSceneProps) {
@@ -515,11 +587,11 @@ function CertificateScene({
         <dl className={styles.certificateDetails}>
           <div>
             <dt>Pemilik hati</dt>
-            <dd>Nara</dd>
+            <dd>{gift.recipientName}</dd>
           </div>
           <div>
             <dt>Dirawat oleh</dt>
-            <dd>Ari</dd>
+            <dd>{gift.senderName}</dd>
           </div>
           <div>
             <dt>Perawatan</dt>
@@ -529,11 +601,20 @@ function CertificateScene({
             <dt>Status</dt>
             <dd>Handled with care</dd>
           </div>
+          {gift.occasionLabel ? (
+            <div>
+              <dt>Occasion</dt>
+              <dd>{gift.occasionLabel}</dd>
+            </div>
+          ) : null}
         </dl>
         <p className={styles.warranty}>
-          Garansi ini berlaku setiap kali dunia terasa terlalu berat dan Nara
-          membutuhkan pengingat bahwa ia tidak sendirian.
+          Garansi ini berlaku setiap kali dunia terasa terlalu berat dan {gift.recipientName}
+          {' '}membutuhkan pengingat bahwa ia tidak sendirian.
         </p>
+        {gift.certificateNote ? (
+          <p className={styles.certificateNote}>{gift.certificateNote}</p>
+        ) : null}
         <span className={styles.certificateStamp}>Repaired with care</span>
       </article>
 

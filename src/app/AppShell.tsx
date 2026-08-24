@@ -1,10 +1,14 @@
 import { useRef, type MouseEvent } from 'react'
-import { Link, Outlet } from 'react-router'
+import { Link, Outlet, useLocation } from 'react-router'
+import { getHeartRepairGiftConfiguration } from '../pages/heart-repair/heartRepairGift.ts'
 import { RouteAnnouncer } from '../shared/RouteAnnouncer.tsx'
 import styles from './AppShell.module.css'
 
 export function AppShell() {
   const mainRef = useRef<HTMLElement>(null)
+  const location = useLocation()
+  const heartRepairGift =
+    location.pathname === '/heart-repair' ? getHeartRepairGiftConfiguration() : null
 
   const skipToMainContent = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
@@ -35,7 +39,11 @@ export function AppShell() {
       </main>
 
       <footer className={styles.footer}>
-        <p>Hadiah digital dari Ari untuk Nara.</p>
+        <p>
+          {heartRepairGift
+            ? `Hadiah digital dari ${heartRepairGift.senderName} untuk ${heartRepairGift.recipientName}.`
+            : 'Hadiah digital dari Andre untuk Gusti.'}
+        </p>
       </footer>
     </div>
   )

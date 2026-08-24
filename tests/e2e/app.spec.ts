@@ -6,6 +6,11 @@ const routes = [
     heading: 'Pilih cara kecil untuk mengatakan sesuatu yang besar.',
   },
   {
+    path: '/secret-message-machine',
+    heading: 'Secret Message',
+    linkName: 'Secret Message Machine',
+  },
+  {
     path: '/unsaid-garden',
     heading: 'Ada beberapa kata yang belum siap diucapkan—jadi aku menanamnya.',
     linkName: 'The Unsaid Garden',
@@ -55,7 +60,7 @@ for (const route of routes) {
   })
 }
 
-test('link halaman utama membuka keempat route dan browser Back berfungsi', async ({
+test('link halaman utama membuka kelima route dan browser Back berfungsi', async ({
   page,
 }) => {
   const errors = collectPageErrors(page)
@@ -134,7 +139,7 @@ test('gallery tetap utuh ketika prefers-reduced-motion aktif', async ({ page }) 
   await page.goto('/')
 
   const themeLinks = page.getByRole('navigation').getByRole('link')
-  await expect(themeLinks).toHaveCount(4)
+  await expect(themeLinks).toHaveCount(5)
 
   for (const themeLink of await themeLinks.all()) {
     await expect(themeLink).toBeVisible()

@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.*
+!.env.example
+supabase/.temp/
 coverage
 playwright-report
 test-results

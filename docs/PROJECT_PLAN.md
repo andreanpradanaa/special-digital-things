@@ -48,8 +48,18 @@ Sample gift memakai pengirim **Andre** dan penerima **Gusti**.
 7. **Secret Message Machine — implemented, awaiting visual review.** Pengalaman kelima tersedia pada `/secret-message-machine`; item ini menjadi featured pertama di gallery tanpa menghapus Garden.
 8. **Asset integration dan interaction polish**.
 9. **Cross-browser, accessibility, responsive, dan final regression**.
+10. **Secret Trip Terminal — Milestone 0: Product Definition dan Implementation Plan — documented, belum diimplementasikan.** Prototype kategori Surprise & Reveals direncanakan pada `/secret-trip-terminal`; detail keputusan berada di `docs/products/secret-trip-terminal/`.
+11. **Supabase Commerce Foundation (Milestone 6A) — implemented, menunggu validasi local Supabase.** Fondasi migration, seed katalog, RLS, anonymous demo buyer, RPC claim atomik, dan application data-access tersedia; storefront dan buyer dashboard belum dimulai.
 
 Milestone tidak dilanjutkan sebelum milestone aktif dapat dijalankan, dilihat, diuji, dan direview.
+
+## Keputusan Commerce Foundation Milestone 6A
+
+- `themeRegistry` tetap menjadi sumber route, preview, dan metadata pengalaman frontend. Tabel `products` hanya menjadi sumber metadata komersial: kategori, harga integer rupiah, status aktif, featured, dan urutan commerce. Kedua sumber dihubungkan oleh `slug` dan `experience_path`; seed harus selalu mengikuti registry, bukan menciptakan route baru.
+- Setiap visitor demo menggunakan `supabase.auth.signInAnonymously()`, sehingga memperoleh user UUID terpisah dan collection/order tidak bercampur. Tidak ada akun email/password bersama.
+- Browser hanya mendapat publishable key. RLS dan grants memblokir perubahan langsung catalog maupun pembuatan langsung order, order item, dan entitlement dari browser.
+- `claim_demo_product(product_id)` menjadi satu-satunya jalur purchase demo. Function membaca nama, harga integer, dan currency dari database; membuat order `demo_completed`, snapshot order item, serta entitlement dalam satu transaksi idempotent.
+- Payment gateway, Storage, email, admin dashboard, storefront, buyer UI, upload, coupon, analytics, dan automation tetap di luar scope Milestone 6A.
 
 ## Keputusan desain gallery Milestone 2
 

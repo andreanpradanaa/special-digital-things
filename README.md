@@ -32,6 +32,25 @@ npm run test:e2e -- --project=chromium
 npm run preview
 ```
 
+## Commerce Foundation (Milestone 6A)
+
+Milestone ini hanya menyiapkan fondasi Supabase untuk katalog, akun demo anonim, transaksi demo, dan koleksi pembeli masa depan. Belum ada storefront, checkout, login visual, maupun dashboard pembeli.
+
+Kebutuhan local development:
+
+- Docker Desktop yang sedang berjalan.
+- [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started) terpasang.
+
+Salin konfigurasi environment tanpa memasukkan secret ke repository:
+
+```bash
+cp .env.example .env.local
+```
+
+Isi `VITE_SUPABASE_URL` dan `VITE_SUPABASE_PUBLISHABLE_KEY` dari output `supabase start`. Publishable key aman dipakai browser; **jangan pernah** memakai `service_role` key pada variabel `VITE_` atau frontend. Jika kedua variabel tidak tersedia, fitur commerce akan mengembalikan error konfigurasi yang jelas dan tidak memakai localStorage sebagai fallback.
+
+Lihat [dokumentasi Supabase](docs/SUPABASE.md) untuk reset database, seed, test RLS, model anonymous user, dan koneksi hosted project.
+
 ## Routes
 
 - `/` — gallery koleksi interactive gift.
@@ -50,5 +69,6 @@ npm run preview
 - `src/styles` — reset, tokens, dan global styles.
 - `tests/e2e` — Playwright smoke tests.
 - `docs/PROJECT_PLAN.md` — scope dan milestone project.
+- `supabase/` — konfigurasi local Supabase, migration, seed deterministik, dan test pgTAP Commerce Foundation.
 
 Setiap experience memakai sample sender Andre dan recipient Gusti; seluruh visual dibuat dengan CSS/inline SVG original. Midnight Radio menyediakan ambience Web Audio optional yang default OFF.

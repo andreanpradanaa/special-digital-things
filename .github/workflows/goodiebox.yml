@@ -1,0 +1,36 @@
+# CI apps/goodiebox: type-check → test → build.
+# Deploy: TODO — sebelumnya manual (scp dist ke VPS). Gunakan user deploy terbatas + SSH key khusus CI bila diotomasi.
+name: Goodiebox
+
+on:
+  push:
+    branches: [main]
+    paths: ['apps/goodiebox/**', 'packages/**', 'package.json', 'package-lock.json', '.github/workflows/goodiebox.yml']
+  pull_request:
+    paths: ['apps/goodiebox/**', 'packages/**', 'package.json', 'package-lock.json', '.github/workflows/goodiebox.yml']
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/goodiebox
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+        working-directory: .
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+        env:
+          VITE_API_BASE_URL: ${{ vars.GOODIEBOX_API_BASE_URL }}
+          VITE_MIDTRANS_SNAP_JS_URL: ${{ vars.GOODIEBOX_MIDTRANS_SNAP_JS_URL }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: goodiebox-dist
+          path: apps/goodiebox/dist
+          retention-days: 7

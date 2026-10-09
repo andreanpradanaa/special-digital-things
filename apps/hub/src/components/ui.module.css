@@ -1,0 +1,127 @@
+/* Button */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.primary {
+  background: var(--accent);
+  color: var(--text-on-accent);
+}
+
+.primary:hover {
+  background: var(--accent-hover);
+}
+
+.secondary {
+  background: var(--bg-elevated);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.secondary:hover {
+  border-color: var(--text-muted);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--accent);
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.ghost:hover {
+  color: var(--accent-hover);
+}
+
+.small {
+  padding: 11px 16px;
+  font-size: 14px;
+}
+
+.full {
+  width: 100%;
+}
+
+/* Chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-elevated);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.chipLink {
+  cursor: pointer;
+}
+
+.chipLink:hover {
+  border-color: var(--border-strong);
+}
+
+.chipActive {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: var(--text-on-accent);
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.sage {
+  background: var(--sage-soft);
+  color: var(--sage-text);
+}
+
+.amber {
+  background: var(--amber-soft);
+  color: var(--amber-text);
+}
+
+.rose {
+  background: var(--rose-soft);
+  color: var(--rose-text);
+}
+
+.plum {
+  background: var(--bg-paper);
+  color: var(--text-primary);
+}

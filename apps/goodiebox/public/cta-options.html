@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Opsi CTA Preview</title>
+<style>
+  :root { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #44394a; }
+  body { margin: 0; padding: 34px 30px 50px; background: linear-gradient(180deg, #f6f0e8, #efe7dc); }
+  h1 { font: 600 22px Georgia, serif; margin: 0 0 6px; }
+  p.lead { margin: 0 0 26px; color: #8a8090; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 20px; }
+  .card { border: 1px solid rgba(125, 99, 139, 0.18); border-radius: 16px; overflow: hidden; background: #fffdf9; box-shadow: 0 10px 26px rgba(60, 40, 30, 0.07); }
+  .stage { height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 34px;
+    background: radial-gradient(120% 90% at 50% 0%, #f9f4ec 0%, #f0e8dc 55%, #e9dfd1 100%); position: relative; }
+  .stage::before { content: ''; position: absolute; top: 26px; left: 50%; transform: translateX(-50%); width: 200px; height: 56px;
+    border-radius: 6px 6px 0 0; background: linear-gradient(180deg, #ddd0bd, #cfc0aa); box-shadow: 0 14px 22px rgba(90, 70, 50, 0.22); }
+  .caption { padding: 13px 16px 15px; border-top: 1px solid rgba(125, 99, 139, 0.14); }
+  .caption strong { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .caption span { display: block; margin-top: 3px; font-size: 12.5px; color: #8a8090; line-height: 1.45; }
+  .badge { display: inline-block; margin-bottom: 5px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #a8824e; font-weight: 600; }
+
+  /* Opsi 1 — sekarang */
+  .opt-current { border: none; background: none; display: inline-flex; align-items: center; gap: 14px; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.32em; text-transform: uppercase; color: #6b5784; cursor: pointer; }
+  .opt-current::before, .opt-current::after { content: ''; width: 30px; height: 1px; background: rgba(107, 87, 132, 0.45); }
+
+  /* Opsi A — ghost outline pill */
+  .opt-ghost { border: 1px solid #6b5784; background: transparent; border-radius: 999px; padding: 12px 30px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #6b5784; cursor: pointer; }
+
+  /* Opsi B — serif editorial */
+  .opt-serif { border: none; background: none; font: italic 500 23px Georgia, serif; color: #3c3348; cursor: pointer;
+    padding-bottom: 5px; border-bottom: 1px solid rgba(60, 51, 72, 0.4); }
+
+  /* Opsi C — dark mini pill */
+  .opt-dark { border: none; background: #211f30; color: #f6f2ec; border-radius: 999px; padding: 11px 24px;
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; cursor: pointer; }
+
+  /* Opsi D — bottom bar */
+  .opt-bar-wrap { position: absolute; bottom: 0; left: 0; right: 0; border-top: 1px solid rgba(107, 87, 132, 0.28);
+    background: rgba(255, 253, 249, 0.9); display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; }
+  .opt-bar-wrap .brand { font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #8a8090; }
+  .opt-bar-wrap .cta { border: none; background: none; font-size: 11px; font-weight: 600; letter-spacing: 0.24em;
+    text-transform: uppercase; color: #6b5784; cursor: pointer; }
+  .opt-bar-wrap .sprig { font-size: 14px; color: #8a8090; }
+</style>
+</head>
+<body>
+  <h1>Opsi area aksi di bawah box</h1>
+  <p class="lead">Perbandingan gaya untuk menggantikan pill ungu. Semua tetap berfungsi buka/tutup &amp; bisa diklik.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="stage"><button class="opt-current">✦ &nbsp;Buka hadiah</button></div>
+      <div class="caption"><span class="badge">Sekarang</span><strong>Quiet link</strong><span>Link small-caps dengan garis tipis di kedua sisi. Paling minimal.</span></div>
+    </div>
+    <div class="card">
+      <div class="stage"><button class="opt-ghost">Buka hadiah</button></div>
+      <div class="caption"><strong>Opsi A — Ghost pill</strong><span>Pill outline tipis tanpa isi warna. Terasa premium-cartier, tetap jelas sebagai tombol.</span></div>
+    </div>
+    <div class="card">
+      <div class="stage"><button class="opt-serif">Buka hadiahmu</button></div>
+      <div class="caption"><strong>Opsi B — Serif editorial</strong><span> Serif italic besar dengan garis bawah halus, seperti tautan majalah feminin.</span></div>
+    </div>
+    <div class="card">
+      <div class="stage"><button class="opt-dark">Buka hadiah</button></div>
+      <div class="caption"><strong>Opsi C — Dark mini pill</strong><span>Pill gelap kompak (versi kecil pill lama). Paling menonjol, kontras kuat.</span></div>
+    </div>
+    <div class="card">
+      <div class="stage">
+        <div class="opt-bar-wrap"><span class="brand">Special Digital Things</span><button class="cta">Buka hadiah</button><span class="sprig">❦</span></div>
+      </div>
+      <div class="caption"><strong>Opsi D — Bottom bar</strong><span>Bar tipis menempel di dasar layar: brand kiri, aksi tengah, ornamen kanan. Footer &amp; CTA jadi satu.</span></div>
+    </div>
+  </div>
+
+<style>
+  h2.sec { font: 600 18px Georgia, serif; margin: 40px 0 6px; }
+  p.sec { margin: 0 0 18px; color: #8a8090; font-size: 13px; }
+  .box-stage { height: 230px; justify-content: center; perspective: 700px; }
+  .lid { position: relative; width: 240px; height: 150px; border-radius: 8px;
+    background: linear-gradient(165deg, #e3d6c2 0%, #d6c7ae 60%, #c9b9a0 100%);
+    box-shadow: 0 18px 30px rgba(90, 70, 50, 0.28), inset 0 1px 0 rgba(255,255,255,0.5);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; }
+  .lid .band-x { position: absolute; left: -6px; right: -6px; top: 88px; height: 15px; background: linear-gradient(180deg, #95879f, #7e6f8c); opacity: 0.92; }
+  .lid .band-y { position: absolute; top: -6px; bottom: -6px; left: 104px; width: 15px; background: linear-gradient(90deg, #95879f, #7e6f8c); opacity: 0.92; }
+  .lid .brand { position: relative; font: 600 11px Georgia, serif; letter-spacing: 0.28em; color: #6b5a4d; }
+  .lid .brand small { display: block; text-align: center; font-size: 7px; letter-spacing: 0.3em; margin-top: 4px; color: #8a7a68; }
+  .tag { position: absolute; left: 60px; top: 30px; transform: rotate(-14deg); background: #fbf7ef; border-radius: 4px;
+    padding: 7px 10px; font: 500 10px Georgia, serif; letter-spacing: 0.14em; color: #6b5a4d; box-shadow: 0 5px 10px rgba(90,70,50,0.2); }
+  .tag::before { content: ''; position: absolute; top: -14px; left: 50%; width: 1px; height: 14px; background: #a8824e; }
+  .emboss { position: relative; font-size: 8.5px; letter-spacing: 0.34em; text-transform: uppercase; color: #b5a48c;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.65), 0 -1px 1px rgba(90,70,50,0.35); }
+  .glow { position: absolute; inset: -34px; border-radius: 50%; background: radial-gradient(closest-side, rgba(139,111,168,0.28), rgba(139,111,168,0) 72%); animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.45; transform: scale(0.97); } 50% { opacity: 1; transform: scale(1.03); } }
+  .crack { transform: rotate(-2.4deg) translate(-3px, -7px); transform-origin: 80% 100%; }
+  .gapline { position: absolute; top: -12px; left: 4%; right: 4%; height: 10px; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(70,55,40,0.5), rgba(70,55,40,0)); }
+  .crack-label { position: relative; font-size: 8.5px; letter-spacing: 0.3em; text-transform: uppercase; color: #8a8090; margin-top: 8px; }
+</style>
+
+<h2 class="sec">Opsi alternatif pada box-nya sendiri</h2>
+<p class="sec">Affordance "bisa dibuka" ditempatkan langsung di box, tanpa tombol sama sekali.</p>
+<div class="grid">
+  <div class="card">
+    <div class="stage box-stage">
+      <div class="lid">
+        <div class="band-x"></div><div class="band-y"></div>
+        <div class="brand">A BRIGHTER KINDER YOU<small>THOUGHTFUL GIFTS — BRIGHTER DAYS</small></div>
+        <div class="emboss">Ketuk untuk membuka</div>
+      </div>
+    </div>
+    <div class="caption"><strong>Opsi 1 — Label emboss di lid</strong><span>Teks kecil efek emboss di depan lid, seperti instruksi kemasan mewah asli. Selalu terlihat, paling literal.</span></div>
+  </div>
+  <div class="card">
+    <div class="stage box-stage">
+      <div class="glow"></div>
+      <div class="lid">
+        <div class="band-x"></div><div class="band-y"></div>
+        <div class="brand">A BRIGHTER KINDER YOU<small>THOUGHTFUL GIFTS — BRIGHTER DAYS</small></div>
+      </div>
+    </div>
+    <div class="caption"><strong>Opsi 2 — Halo berdenyut</strong><span>Cahaya lembut berdenyut di sekeliling box — bahasa "bisa diklik" yang umum di 3D. Tanpa teks sama sekali.</span></div>
+  </div>
+  <div class="card">
+    <div class="stage box-stage">
+      <div class="lid">
+        <div class="band-x"></div><div class="band-y"></div>
+        <div class="tag">untukmu ✦</div>
+        <div class="brand">A BRIGHTER KINDER YOU<small>THOUGHTFUL GIFTS — BRIGHTER DAYS</small></div>
+      </div>
+    </div>
+    <div class="caption"><strong>Opsi 3 — Hang tag</strong><span>Tag kertas kecil tergantung di pita ("untukmu"). Sentuhan craft, mengundang diangkat.</span></div>
+  </div>
+  <div class="card">
+    <div class="stage box-stage">
+      <div class="lid crack">
+        <div class="gapline"></div>
+        <div class="band-x"></div><div class="band-y"></div>
+        <div class="brand">A BRIGHTER KINDER YOU<small>THOUGHTFUL GIFTS — BRIGHTER DAYS</small></div>
+      </div>
+      <div class="crack-label">terbuka sedikit — coba klik</div>
+    </div>
+    <div class="caption"><strong>Opsi 4 — Lid retak terbuka</strong><span>Lid selalu sedikit terbuka (miring ±3°) dengan celah bayangan — mengundang "buka penuh". Paling intuitif secara fisik.</span></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+# CI apps/hub: lint → format → type-check → test + coverage → build.
+# Deploy: TODO — target belum ditentukan. Credential lewat GitHub Secrets, jangan di repo.
+name: Hub
+
+on:
+  push:
+    branches: [main]
+    paths: ['apps/hub/**', 'packages/**', 'package.json', 'package-lock.json', '.github/workflows/hub.yml']
+  pull_request:
+    paths: ['apps/hub/**', 'packages/**', 'package.json', 'package-lock.json', '.github/workflows/hub.yml']
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/hub
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+        working-directory: .
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm run test:coverage
+      - run: npm run build
+        env:
+          VITE_GOODIEBOX_URL: ${{ vars.VITE_GOODIEBOX_URL }}
+          VITE_WAITLIST_URL: ${{ vars.VITE_WAITLIST_URL }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hub-dist
+          path: apps/hub/dist
+          retention-days: 7

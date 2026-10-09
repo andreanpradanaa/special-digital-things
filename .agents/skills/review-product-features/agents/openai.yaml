@@ -1,4 +1,0 @@
-interface:
-  display_name: "Review Product Features"
-  short_description: "Audit prioritas fitur untuk satu produk digital."
-  default_prompt: "Audit satu produk digital dan rekomendasikan maksimal tiga fitur prioritas tanpa mengubah source code."

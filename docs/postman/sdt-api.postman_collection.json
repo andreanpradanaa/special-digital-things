@@ -1,0 +1,1202 @@
+{
+  "info": {
+    "name": "Special Digital Things API (services/api)",
+    "description": "Endpoint goodiebox-server. Semua publik; webhook diverifikasi signature sha512. Amplop error: {\"error\":{\"code\",\"message\"}}. Dibuat dari kode 2026-10-09 lewat /postman.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "orderCode",
+      "value": ""
+    },
+    {
+      "key": "publicSlug",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/healthz",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "healthz"
+              ]
+            },
+            "description": "Publik. Cek server hidup."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/healthz",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "healthz"
+                  ]
+                },
+                "description": "Publik. Cek server hidup."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Buat order + Snap token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "{{$guid}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "orders"
+              ]
+            },
+            "description": "Publik. Header Idempotency-Key (UUID) mencegah order ganda saat retry. Harga dihitung server. Validasi: recipientName & senderName wajib, mood/boxTheme dari daftar, maks 6 item, body ≤ 256 KB.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipientName\": \"Sinta\",\n  \"senderName\": \"Bima\",\n  \"mood\": \"birthday\",\n  \"innerNote\": \"Selamat ulang tahun, semoga tahun ini lebih ringan.\",\n  \"boxColor\": \"#e8b7a3\",\n  \"boxTheme\": \"botanical\",\n  \"items\": [\n    {\n      \"id\": \"letter-1\",\n      \"type\": \"letter\",\n      \"title\": \"Untuk kamu\",\n      \"message\": \"Hai Sinta!\",\n      \"signature\": \"Bima\"\n    },\n    {\n      \"id\": \"voucher-1\",\n      \"type\": \"voucher\",\n      \"title\": \"Kupon janji\",\n      \"description\": \"Traktir kopi sekali\",\n      \"code\": \"KOPI-01\"\n    }\n  ],\n  \"customer\": {\n    \"name\": \"Bima Contoh\",\n    \"email\": \"bima@contoh.id\",\n    \"phone\": \"081200000000\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "{{$guid}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "orders"
+                  ]
+                },
+                "description": "Publik. Header Idempotency-Key (UUID) mencegah order ganda saat retry. Harga dihitung server. Validasi: recipientName & senderName wajib, mood/boxTheme dari daftar, maks 6 item, body ≤ 256 KB.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientName\": \"Sinta\",\n  \"senderName\": \"Bima\",\n  \"mood\": \"birthday\",\n  \"innerNote\": \"Selamat ulang tahun, semoga tahun ini lebih ringan.\",\n  \"boxColor\": \"#e8b7a3\",\n  \"boxTheme\": \"botanical\",\n  \"items\": [\n    {\n      \"id\": \"letter-1\",\n      \"type\": \"letter\",\n      \"title\": \"Untuk kamu\",\n      \"message\": \"Hai Sinta!\",\n      \"signature\": \"Bima\"\n    },\n    {\n      \"id\": \"voucher-1\",\n      \"type\": \"voucher\",\n      \"title\": \"Kupon janji\",\n      \"description\": \"Traktir kopi sekali\",\n      \"code\": \"KOPI-01\"\n    }\n  ],\n  \"customer\": {\n    \"name\": \"Bima Contoh\",\n    \"email\": \"bima@contoh.id\",\n    \"phone\": \"081200000000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"order_code\": \"GBX-261009-K3M8XA\",\n  \"public_slug\": \"k7bdm2xq9r\",\n  \"status\": \"pending\",\n  \"amount\": 49000,\n  \"currency\": \"IDR\",\n  \"snap_token\": \"contoh-snap-token\",\n  \"snap_redirect_url\": \"https://app.sandbox.midtrans.com/snap/v2/vtweb/contoh-snap-token\",\n  \"client_key\": \"SB-Mid-client-CONTOH\",\n  \"is_production\": false,\n  \"created_at\": \"2026-10-09T10:00:00Z\"\n}"
+            },
+            {
+              "name": "Body tidak valid",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "{{$guid}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "orders"
+                  ]
+                },
+                "description": "Publik. Header Idempotency-Key (UUID) mencegah order ganda saat retry. Harga dihitung server. Validasi: recipientName & senderName wajib, mood/boxTheme dari daftar, maks 6 item, body ≤ 256 KB.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientName\": \"Sinta\",\n  \"senderName\": \"Bima\",\n  \"mood\": \"birthday\",\n  \"innerNote\": \"Selamat ulang tahun, semoga tahun ini lebih ringan.\",\n  \"boxColor\": \"#e8b7a3\",\n  \"boxTheme\": \"botanical\",\n  \"items\": [\n    {\n      \"id\": \"letter-1\",\n      \"type\": \"letter\",\n      \"title\": \"Untuk kamu\",\n      \"message\": \"Hai Sinta!\",\n      \"signature\": \"Bima\"\n    },\n    {\n      \"id\": \"voucher-1\",\n      \"type\": \"voucher\",\n      \"title\": \"Kupon janji\",\n      \"description\": \"Traktir kopi sekali\",\n      \"code\": \"KOPI-01\"\n    }\n  ],\n  \"customer\": {\n    \"name\": \"Bima Contoh\",\n    \"email\": \"bima@contoh.id\",\n    \"phone\": \"081200000000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_BODY\",\n    \"message\": \"body JSON tidak valid\"\n  }\n}"
+            },
+            {
+              "name": "Validasi gagal",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "{{$guid}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "orders"
+                  ]
+                },
+                "description": "Publik. Header Idempotency-Key (UUID) mencegah order ganda saat retry. Harga dihitung server. Validasi: recipientName & senderName wajib, mood/boxTheme dari daftar, maks 6 item, body ≤ 256 KB.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientName\": \"Sinta\",\n  \"senderName\": \"Bima\",\n  \"mood\": \"birthday\",\n  \"innerNote\": \"Selamat ulang tahun, semoga tahun ini lebih ringan.\",\n  \"boxColor\": \"#e8b7a3\",\n  \"boxTheme\": \"botanical\",\n  \"items\": [\n    {\n      \"id\": \"letter-1\",\n      \"type\": \"letter\",\n      \"title\": \"Untuk kamu\",\n      \"message\": \"Hai Sinta!\",\n      \"signature\": \"Bima\"\n    },\n    {\n      \"id\": \"voucher-1\",\n      \"type\": \"voucher\",\n      \"title\": \"Kupon janji\",\n      \"description\": \"Traktir kopi sekali\",\n      \"code\": \"KOPI-01\"\n    }\n  ],\n  \"customer\": {\n    \"name\": \"Bima Contoh\",\n    \"email\": \"bima@contoh.id\",\n    \"phone\": \"081200000000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"recipientName wajib diisi\"\n  }\n}"
+            },
+            {
+              "name": "Midtrans tidak tersedia",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "{{$guid}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "orders"
+                  ]
+                },
+                "description": "Publik. Header Idempotency-Key (UUID) mencegah order ganda saat retry. Harga dihitung server. Validasi: recipientName & senderName wajib, mood/boxTheme dari daftar, maks 6 item, body ≤ 256 KB.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientName\": \"Sinta\",\n  \"senderName\": \"Bima\",\n  \"mood\": \"birthday\",\n  \"innerNote\": \"Selamat ulang tahun, semoga tahun ini lebih ringan.\",\n  \"boxColor\": \"#e8b7a3\",\n  \"boxTheme\": \"botanical\",\n  \"items\": [\n    {\n      \"id\": \"letter-1\",\n      \"type\": \"letter\",\n      \"title\": \"Untuk kamu\",\n      \"message\": \"Hai Sinta!\",\n      \"signature\": \"Bima\"\n    },\n    {\n      \"id\": \"voucher-1\",\n      \"type\": \"voucher\",\n      \"title\": \"Kupon janji\",\n      \"description\": \"Traktir kopi sekali\",\n      \"code\": \"KOPI-01\"\n    }\n  ],\n  \"customer\": {\n    \"name\": \"Bima Contoh\",\n    \"email\": \"bima@contoh.id\",\n    \"phone\": \"081200000000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"MIDTRANS_UNAVAILABLE\",\n    \"message\": \"gagal membuat transaksi pembayaran\"\n  }\n}"
+            },
+            {
+              "name": "Error internal",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "{{$guid}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "orders"
+                  ]
+                },
+                "description": "Publik. Header Idempotency-Key (UUID) mencegah order ganda saat retry. Harga dihitung server. Validasi: recipientName & senderName wajib, mood/boxTheme dari daftar, maks 6 item, body ≤ 256 KB.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientName\": \"Sinta\",\n  \"senderName\": \"Bima\",\n  \"mood\": \"birthday\",\n  \"innerNote\": \"Selamat ulang tahun, semoga tahun ini lebih ringan.\",\n  \"boxColor\": \"#e8b7a3\",\n  \"boxTheme\": \"botanical\",\n  \"items\": [\n    {\n      \"id\": \"letter-1\",\n      \"type\": \"letter\",\n      \"title\": \"Untuk kamu\",\n      \"message\": \"Hai Sinta!\",\n      \"signature\": \"Bima\"\n    },\n    {\n      \"id\": \"voucher-1\",\n      \"type\": \"voucher\",\n      \"title\": \"Kupon janji\",\n      \"description\": \"Traktir kopi sekali\",\n      \"code\": \"KOPI-01\"\n    }\n  ],\n  \"customer\": {\n    \"name\": \"Bima Contoh\",\n    \"email\": \"bima@contoh.id\",\n    \"phone\": \"081200000000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"terjadi kesalahan\"\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.order_code) pm.collectionVariables.set(\"orderCode\", r.order_code);",
+                  "if (r.public_slug) pm.collectionVariables.set(\"publicSlug\", r.public_slug);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Status order (polling)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/orders/{{orderCode}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "orders",
+                "{{orderCode}}"
+              ]
+            },
+            "description": "Publik. Dipanggil frontend setelah Snap ditutup."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/orders/{{orderCode}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "orders",
+                    "{{orderCode}}"
+                  ]
+                },
+                "description": "Publik. Dipanggil frontend setelah Snap ditutup."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"order_code\": \"GBX-261009-K3M8XA\",\n  \"public_slug\": \"k7bdm2xq9r\",\n  \"status\": \"paid\",\n  \"amount\": 49000,\n  \"currency\": \"IDR\",\n  \"payment_status\": \"success\",\n  \"payment_type\": \"qris\",\n  \"paid_at\": \"2026-10-09T10:05:00Z\",\n  \"gift_unlock_path\": \"/v1/gifts/k7bdm2xq9r\"\n}"
+            },
+            {
+              "name": "Tidak ditemukan",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/orders/{{orderCode}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "orders",
+                    "{{orderCode}}"
+                  ]
+                },
+                "description": "Publik. Dipanggil frontend setelah Snap ditutup."
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"ORDER_NOT_FOUND\",\n    \"message\": \"order tidak ditemukan\"\n  }\n}"
+            },
+            {
+              "name": "Error internal",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/orders/{{orderCode}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "orders",
+                    "{{orderCode}}"
+                  ]
+                },
+                "description": "Publik. Dipanggil frontend setelah Snap ditutup."
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"terjadi kesalahan\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Webhook notifikasi Midtrans",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/payments/notifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "payments",
+                "notifications"
+              ]
+            },
+            "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Diproses",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/payments/notifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "payments",
+                    "notifications"
+                  ]
+                },
+                "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"status\": \"processed\",\n  \"duplicate\": false\n}"
+            },
+            {
+              "name": "Order tidak dikenal (diabaikan)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/payments/notifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "payments",
+                    "notifications"
+                  ]
+                },
+                "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"status\": \"ignored\",\n  \"reason\": \"order_not_found\"\n}"
+            },
+            {
+              "name": "Body bukan JSON",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/payments/notifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "payments",
+                    "notifications"
+                  ]
+                },
+                "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_BODY\",\n    \"message\": \"payload notifikasi bukan JSON valid\"\n  }\n}"
+            },
+            {
+              "name": "Notifikasi tidak valid",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/payments/notifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "payments",
+                    "notifications"
+                  ]
+                },
+                "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_NOTIFICATION\",\n    \"message\": \"notifikasi tidak lengkap\"\n  }\n}"
+            },
+            {
+              "name": "Signature salah",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/payments/notifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "payments",
+                    "notifications"
+                  ]
+                },
+                "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_SIGNATURE\",\n    \"message\": \"signature tidak valid\"\n  }\n}"
+            },
+            {
+              "name": "Error internal",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/payments/notifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "payments",
+                    "notifications"
+                  ]
+                },
+                "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"gagal memproses notifikasi\"\n  }\n}"
+            },
+            {
+              "name": "Nominal tidak cocok",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/payments/notifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "payments",
+                    "notifications"
+                  ]
+                },
+                "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"AMOUNT_MISMATCH\",\n    \"message\": \"gross_amount tidak sesuai order\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Gifts",
+      "item": [
+        {
+          "name": "Isi hadiah untuk penerima",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/gifts/{{publicSlug}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "gifts",
+                "{{publicSlug}}"
+              ]
+            },
+            "description": "Publik. Mengembalikan builder state lengkap hanya bila order sudah paid."
+          },
+          "response": [
+            {
+              "name": "OK (paid)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/gifts/{{publicSlug}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "gifts",
+                    "{{publicSlug}}"
+                  ]
+                },
+                "description": "Publik. Mengembalikan builder state lengkap hanya bila order sudah paid."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"recipientName\": \"Sinta\",\n  \"senderName\": \"Bima\",\n  \"mood\": \"birthday\",\n  \"innerNote\": \"Selamat ulang tahun, semoga tahun ini lebih ringan.\",\n  \"boxColor\": \"#e8b7a3\",\n  \"boxTheme\": \"botanical\",\n  \"items\": [\n    {\n      \"id\": \"letter-1\",\n      \"type\": \"letter\",\n      \"title\": \"Untuk kamu\",\n      \"message\": \"Hai Sinta!\",\n      \"signature\": \"Bima\"\n    },\n    {\n      \"id\": \"voucher-1\",\n      \"type\": \"voucher\",\n      \"title\": \"Kupon janji\",\n      \"description\": \"Traktir kopi sekali\",\n      \"code\": \"KOPI-01\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Belum dibayar",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/gifts/{{publicSlug}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "gifts",
+                    "{{publicSlug}}"
+                  ]
+                },
+                "description": "Publik. Mengembalikan builder state lengkap hanya bila order sudah paid."
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"GIFT_LOCKED\",\n    \"message\": \"hadiah belum bisa dibuka\"\n  }\n}"
+            },
+            {
+              "name": "Tidak ditemukan",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/gifts/{{publicSlug}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "gifts",
+                    "{{publicSlug}}"
+                  ]
+                },
+                "description": "Publik. Mengembalikan builder state lengkap hanya bila order sudah paid."
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"GIFT_NOT_FOUND\",\n    \"message\": \"gift tidak ditemukan\"\n  }\n}"
+            },
+            {
+              "name": "Error internal",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/gifts/{{publicSlug}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "gifts",
+                    "{{publicSlug}}"
+                  ]
+                },
+                "description": "Publik. Mengembalikan builder state lengkap hanya bila order sudah paid."
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"gagal mengambil gift\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Uploads",
+      "item": [
+        {
+          "name": "Unggah foto / video",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/uploads",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "uploads"
+              ]
+            },
+            "description": "Publik, multipart (maks 25 MB). Field: file, type = photo | video. File diserve di /uploads/*.",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "type",
+                  "value": "photo",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/uploads",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "uploads"
+                  ]
+                },
+                "description": "Publik, multipart (maks 25 MB). Field: file, type = photo | video. File diserve di /uploads/*.",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "type",
+                      "value": "photo",
+                      "type": "text"
+                    },
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": []
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"id\": \"7f1c2e9a-0000-4000-8000-000000000000\",\n  \"url\": \"/uploads/7f1c2e9a-0000-4000-8000-000000000000.webp\"\n}"
+            },
+            {
+              "name": "Form tidak valid",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/uploads",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "uploads"
+                  ]
+                },
+                "description": "Publik, multipart (maks 25 MB). Field: file, type = photo | video. File diserve di /uploads/*.",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "type",
+                      "value": "photo",
+                      "type": "text"
+                    },
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": []
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_REQUEST\",\n    \"message\": \"failed to parse form\"\n  }\n}"
+            },
+            {
+              "name": "File kosong",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/uploads",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "uploads"
+                  ]
+                },
+                "description": "Publik, multipart (maks 25 MB). Field: file, type = photo | video. File diserve di /uploads/*.",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "type",
+                      "value": "photo",
+                      "type": "text"
+                    },
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": []
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"MISSING_FILE\",\n    \"message\": \"file field required\"\n  }\n}"
+            },
+            {
+              "name": "Tipe salah",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/uploads",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "uploads"
+                  ]
+                },
+                "description": "Publik, multipart (maks 25 MB). Field: file, type = photo | video. File diserve di /uploads/*.",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "type",
+                      "value": "photo",
+                      "type": "text"
+                    },
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": []
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_TYPE\",\n    \"message\": \"type harus 'photo' atau 'video'\"\n  }\n}"
+            },
+            {
+              "name": "Gagal simpan",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/uploads",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "uploads"
+                  ]
+                },
+                "description": "Publik, multipart (maks 25 MB). Field: file, type = photo | video. File diserve di /uploads/*.",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "type",
+                      "value": "photo",
+                      "type": "text"
+                    },
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": []
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UPLOAD_FAILED\",\n    \"message\": \"gagal menyimpan file\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

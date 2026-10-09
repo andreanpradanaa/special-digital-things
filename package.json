@@ -1,35 +1,22 @@
 {
   "name": "special-digital-things",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "0.1.0",
+  "description": "Monorepo Special Digital Things: hub katalog, produk digital (Goodiebox, ...), dan API.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint .",
-    "typecheck": "tsc -b --pretty false",
-    "test:unit": "vitest run",
-    "test:unit:watch": "vitest",
-    "test:e2e": "playwright test",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.112.3",
-    "motion": "^13.1.1",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "react-router": "^8.3.0"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.62.1",
-    "@types/node": "^24.13.3",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.4",
-    "oxlint": "^1.75.0",
-    "supabase": "^2.115.0",
-    "typescript": "~6.0.2",
-    "vite": "^8.2.0",
-    "vitest": "^4.1.11"
+    "dev:hub": "npm run dev -w apps/hub",
+    "dev:goodiebox": "npm run dev -w apps/goodiebox",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "format": "npm run format --workspaces --if-present",
+    "api:test": "cd services/api && go test ./...",
+    "api:build": "cd services/api && go build -o bin/server ./cmd/server",
+    "api:vet": "cd services/api && go vet ./..."
   }
 }

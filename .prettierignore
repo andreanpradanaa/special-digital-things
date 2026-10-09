@@ -1,0 +1,9 @@
+node_modules
+dist
+coverage
+graphify-out
+package-lock.json
+services/
+apps/goodiebox/
+# File ECC (agents/rules/skills) dibiarkan apa adanya supaya mudah di-diff dengan upstream
+.claude/

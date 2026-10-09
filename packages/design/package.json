@@ -1,0 +1,9 @@
+{
+  "name": "@sdt/design",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Design token bersama Special Digital Things (selaras dengan Figma: SDT Tokens).",
+  "exports": {
+    "./tokens.css": "./tokens.css"
+  }
+}

@@ -1,0 +1,47 @@
+/* Design tokens — sumber kebenaran: Figma "Special Digital Things" → SDT Tokens */
+:root {
+  --bg-ivory: #f3ebdf;
+  --bg-surface: #fbf7f0;
+  --bg-elevated: #ffffff;
+  --bg-paper: #efe4d2;
+
+  --text-primary: #44394a;
+  --text-muted: #7a6f80;
+  --text-on-accent: #fff8f0;
+
+  --accent: #c4603a;
+  --accent-hover: #a84e2c;
+  --accent-soft: #f4ded3;
+
+  --border-soft: #e6dccb;
+  --border-strong: #cdbfa9;
+
+  --sage: #7f9a7a;
+  --sage-soft: #e4ece0;
+  --sage-text: #4f6b4a;
+  --amber: #d9a441;
+  --amber-soft: #f6e9c9;
+  --amber-text: #8a6512;
+  --rose: #c98c8c;
+  --rose-soft: #f3dede;
+  --rose-text: #8f4a4a;
+  --skeleton: #e9e1d4;
+
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-script: 'Caveat', 'Segoe Script', cursive;
+
+  --radius-sm: 12px;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+  --shadow-card: 0 6px 18px rgba(68, 57, 74, 0.08);
+
+  --container: 1120px;
+  --gutter: 24px;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --gutter: 80px;
+  }
+}

@@ -37,7 +37,7 @@ describe('ProductPage', () => {
   test('produk live: harga, langkah, FAQ, dan CTA ke link produk', () => {
     renderRoute('/produk/:slug', '/produk/goodiebox', <ProductPage />)
     expect(screen.getByRole('heading', { level: 1, name: 'Goodiebox' })).toBeInTheDocument()
-    expect(screen.getAllByText('Rp 49.000').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Rp 20.000').length).toBeGreaterThan(0)
     expect(screen.getByText('Yang akan dia alami')).toBeInTheDocument()
     expect(screen.getByText('Pertanyaan umum')).toBeInTheDocument()
     const ctas = screen.getAllByRole('link', { name: 'Buka Goodiebox →' })

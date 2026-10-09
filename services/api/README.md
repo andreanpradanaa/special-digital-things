@@ -61,7 +61,7 @@ Cek `curl http://localhost:8080/healthz` → `{"status":"ok"}`.
 | `MIDTRANS_SERVER_KEY` | — (wajib) | Server key Midtrans |
 | `MIDTRANS_CLIENT_KEY` | — (wajib) | Client key, dikirim ke frontend untuk Snap popup |
 | `MIDTRANS_IS_PRODUCTION` | `false` | `true` = production, `false` = sandbox |
-| `BOX_PRICE_IDR` | `49000` | Harga satu box (IDR), ditentukan server |
+| `BOX_PRICE_IDR` | `20000` | Harga satu box (IDR), ditentukan server |
 | `ALLOWED_ORIGINS` | `http://localhost:5173` | Origin frontend untuk CORS (dipisah koma) |
 | `MIDTRANS_SNAP_API_BASE` | (kosong = host resmi) | Override host Snap API, khusus dev dengan [mock Midtrans](#e2e-dev-tanpa-server-key-asli-mock-midtrans) |
 
@@ -98,7 +98,7 @@ Response `201`:
   "order_code": "GBX-260906-K3M8XA",
   "public_slug": "k7bdm2xq9r",
   "status": "pending",
-  "amount": 49000,
+  "amount": 20000,
   "currency": "IDR",
   "snap_token": "a1b2c3d4...",
   "snap_redirect_url": "https://app.sandbox.midtrans.com/snap/v2/vtweb/a1b2c3d4...",
@@ -118,7 +118,7 @@ Response `201`:
   "order_code": "GBX-260906-K3M8XA",
   "public_slug": "k7bdm2xq9r",
   "status": "paid",
-  "amount": 49000,
+  "amount": 20000,
   "currency": "IDR",
   "payment_status": "success",
   "payment_type": "qris",
@@ -169,7 +169,7 @@ Server key mock diambil dari Basic auth request Snap, sehingga signature selalu 
 ```bash
 SERVER_KEY="SB-Mid-server-xxxx"
 ORDER_CODE="GBX-..."      # dari POST /v1/orders
-AMOUNT="49000.00"
+AMOUNT="20000.00"
 SIG=$(printf '%s' "${ORDER_CODE}200${AMOUNT}${SERVER_KEY}" | openssl dgst -sha512 | awk '{print $NF}')
 
 curl -X POST http://localhost:8080/v1/payments/notifications -H 'Content-Type: application/json' -d "{

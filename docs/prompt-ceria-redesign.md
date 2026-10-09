@@ -2,7 +2,7 @@
 
 Kamu bekerja di project `sdt-hub` (React + Vite + CSS Modules, dev server `npm run dev` di port 5174).
 Ini landing page toko hadiah digital "Special Digital Things". Produk utama yang sudah live: **Goodiebox**
-(kotak hadiah 3D, pita ditarik, tutup terbuka, isi muncul satu per satu, Rp 49.000).
+(kotak hadiah 3D, pita ditarik, tutup terbuka, isi muncul satu per satu, Rp 20.000).
 Produk lain masih "Segera hadir": Heart Repair, Lost & Found, Midnight Radio, Secret Message Machine,
 Unsaid Garden, Secret Trip Terminal.
 
@@ -86,7 +86,7 @@ reflektif (Heart Repair, Unsaid Garden, Lost & Found) dan footer. Perbarui `inde
 
 - Tambahkan tombol primer "Bikin Goodiebox sekarang" langsung di bawah sub hero (sebelum chip kategori).
 - Tambahkan CTA sticky di bawah layar (muncul setelah scroll 1 layar, hilang saat footer terlihat),
-  tinggi 56px, latar `--joy`, teks "Bikin Goodiebox · Rp 49.000".
+  tinggi 56px, latar `--joy`, teks "Bikin Goodiebox · Rp 20.000".
 - Nav mobile: tampilkan "Produk" dan "Untuk siapa" juga, boleh jadi menu hamburger sederhana.
 
 ## Batasan

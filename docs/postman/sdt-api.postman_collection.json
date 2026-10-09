@@ -149,7 +149,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"order_code\": \"GBX-261009-K3M8XA\",\n  \"public_slug\": \"k7bdm2xq9r\",\n  \"status\": \"pending\",\n  \"amount\": 49000,\n  \"currency\": \"IDR\",\n  \"snap_token\": \"contoh-snap-token\",\n  \"snap_redirect_url\": \"https://app.sandbox.midtrans.com/snap/v2/vtweb/contoh-snap-token\",\n  \"client_key\": \"SB-Mid-client-CONTOH\",\n  \"is_production\": false,\n  \"created_at\": \"2026-10-09T10:00:00Z\"\n}"
+              "body": "{\n  \"order_code\": \"GBX-261009-K3M8XA\",\n  \"public_slug\": \"k7bdm2xq9r\",\n  \"status\": \"pending\",\n  \"amount\": 20000,\n  \"currency\": \"IDR\",\n  \"snap_token\": \"contoh-snap-token\",\n  \"snap_redirect_url\": \"https://app.sandbox.midtrans.com/snap/v2/vtweb/contoh-snap-token\",\n  \"client_key\": \"SB-Mid-client-CONTOH\",\n  \"is_production\": false,\n  \"created_at\": \"2026-10-09T10:00:00Z\"\n}"
             },
             {
               "name": "Body tidak valid",
@@ -396,7 +396,7 @@
                   "value": "application/json; charset=utf-8"
                 }
               ],
-              "body": "{\n  \"order_code\": \"GBX-261009-K3M8XA\",\n  \"public_slug\": \"k7bdm2xq9r\",\n  \"status\": \"paid\",\n  \"amount\": 49000,\n  \"currency\": \"IDR\",\n  \"payment_status\": \"success\",\n  \"payment_type\": \"qris\",\n  \"paid_at\": \"2026-10-09T10:05:00Z\",\n  \"gift_unlock_path\": \"/v1/gifts/k7bdm2xq9r\"\n}"
+              "body": "{\n  \"order_code\": \"GBX-261009-K3M8XA\",\n  \"public_slug\": \"k7bdm2xq9r\",\n  \"status\": \"paid\",\n  \"amount\": 20000,\n  \"currency\": \"IDR\",\n  \"payment_status\": \"success\",\n  \"payment_type\": \"qris\",\n  \"paid_at\": \"2026-10-09T10:05:00Z\",\n  \"gift_unlock_path\": \"/v1/gifts/k7bdm2xq9r\"\n}"
             },
             {
               "name": "Tidak ditemukan",
@@ -487,7 +487,7 @@
             "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+              "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"20000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -520,7 +520,7 @@
                 "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"20000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -563,7 +563,7 @@
                 "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"20000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -606,7 +606,7 @@
                 "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"20000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -649,7 +649,7 @@
                 "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"20000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -692,7 +692,7 @@
                 "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"20000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -735,7 +735,7 @@
                 "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"20000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -778,7 +778,7 @@
                 "description": "Hanya dipanggil Midtrans. signature_key = sha512(order_id + status_code + gross_amount + server_key). Contoh di bawah memakai signature palsu sehingga akan ditolak 403 — hitung sendiri dengan server key sandbox untuk uji lokal.",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"49000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
+                  "raw": "{\n  \"order_id\": \"{{orderCode}}\",\n  \"status_code\": \"200\",\n  \"gross_amount\": \"20000.00\",\n  \"transaction_status\": \"settlement\",\n  \"fraud_status\": \"accept\",\n  \"transaction_id\": \"txn-contoh-001\",\n  \"payment_type\": \"qris\",\n  \"signature_key\": \"HITUNG-SENDIRI\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"

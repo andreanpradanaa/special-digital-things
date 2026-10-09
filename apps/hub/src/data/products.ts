@@ -35,7 +35,7 @@ export const products: Product[] = [
     description:
       'Kotak hadiah 3D yang kamu isi sendiri, lalu dia buka lewat satu link. Pita ditarik, tutup terbuka, isinya muncul satu per satu. Tanpa aplikasi, tanpa ongkir.',
     script: 'satu kotak, satu link, satu orang',
-    priceIdr: 49000,
+    priceIdr: 20000,
     items: ['Surat / amplop', 'Foto polaroid', 'Kartu musik', 'Kupon janji', 'Voice note', 'Video kenangan'],
     occasions: ['ulang-tahun', 'romantis', 'terima-kasih', 'persahabatan', 'semangat'],
     color: '#f2d9cd',

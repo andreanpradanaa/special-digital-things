@@ -46,7 +46,7 @@ func Load() (*Config, error) {
 		return nil, fmt.Errorf("environment MIDTRANS_SERVER_KEY dan MIDTRANS_CLIENT_KEY wajib diisi")
 	}
 
-	price, err := strconv.ParseInt(envOr("BOX_PRICE_IDR", "49000"), 10, 64)
+	price, err := strconv.ParseInt(envOr("BOX_PRICE_IDR", "20000"), 10, 64)
 	if err != nil || price <= 0 {
 		return nil, fmt.Errorf("BOX_PRICE_IDR harus bilangan bulat positif")
 	}

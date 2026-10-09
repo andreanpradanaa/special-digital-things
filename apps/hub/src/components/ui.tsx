@@ -4,9 +4,12 @@ import s from './ui.module.css'
 
 type ButtonProps = {
   children: ReactNode
-  variant?: 'primary' | 'secondary' | 'ghost'
-  size?: 'default' | 'small'
+  /** joy = CTA ceria (Goodiebox), primary = terakota, secondary = garis, ghost = teks */
+  variant?: 'joy' | 'primary' | 'secondary' | 'ghost'
+  size?: 'default' | 'small' | 'large'
   full?: boolean
+  /** Tambahkan panah "→" yang bergeser saat hover (dekoratif, tidak dibacakan) */
+  arrow?: boolean
   /** Link internal (react-router) */
   to?: string
   /** Link eksternal — dipakai untuk keluar dari hub ke halaman produk */
@@ -17,11 +20,14 @@ type ButtonProps = {
   className?: string
 }
 
+const sizeClass = { default: '', small: s.small, large: s.large }
+
 export function Button({
   children,
   variant = 'primary',
   size = 'default',
   full,
+  arrow,
   to,
   href,
   type = 'button',
@@ -29,24 +35,34 @@ export function Button({
   onClick,
   className,
 }: ButtonProps) {
-  const cls = [s.button, s[variant], size === 'small' ? s.small : '', full ? s.full : '', className ?? ''].join(' ')
+  const cls = [s.button, s[variant], sizeClass[size], full ? s.full : '', className ?? ''].join(' ')
+  const content = (
+    <>
+      <span>{children}</span>
+      {arrow && (
+        <span className={s.arrow} aria-hidden="true">
+          →
+        </span>
+      )}
+    </>
+  )
   if (href) {
     return (
       <a className={cls} href={href}>
-        {children}
+        {content}
       </a>
     )
   }
   if (to) {
     return (
       <Link className={cls} to={to}>
-        {children}
+        {content}
       </Link>
     )
   }
   return (
     <button className={cls} type={type} disabled={disabled} onClick={onClick}>
-      {children}
+      {content}
     </button>
   )
 }
@@ -65,7 +81,7 @@ export function Chip({ children, active, to }: ChipProps) {
   return <span className={cls}>{children}</span>
 }
 
-type BadgeProps = { children: ReactNode; tone?: 'sage' | 'amber' | 'rose' | 'plum' }
+type BadgeProps = { children: ReactNode; tone?: 'joy' | 'sage' | 'amber' | 'rose' | 'plum' }
 
 export function Badge({ children, tone = 'plum' }: BadgeProps) {
   return <span className={[s.badge, s[tone]].join(' ')}>{children}</span>

@@ -1,11 +1,11 @@
 # Progress — monorepo Special Digital Things
 
-Diperbarui: 2026-10-10 · Total **52/68 task · 76%**
+Diperbarui: 2026-10-10 · Total **53/69 task · 77%**
 
 | Prioritas | Fitur                                              | Progress   | %    | x/y   | Status      |
 | --------- | -------------------------------------------------- | ---------- | ---- | ----- | ----------- |
 | P0        | Fondasi monorepo (workspaces, tooling, CI, Claude) | ██████████ | 100% | 12/12 | Selesai     |
-| P0        | Hub: katalog                                       | ████████░░ | 80%  | 12/15 | Berjalan    |
+| P0        | Hub: katalog                                       | ████████░░ | 81%  | 13/16 | Berjalan    |
 | P0        | Goodiebox: builder + checkout + penerima           | █████████░ | 90%  | 9/10  | Berjalan    |
 | P0        | API: order, pembayaran, gift, upload               | ███████░░░ | 73%  | 8/11  | Berjalan    |
 | P1        | Deploy ke VPS baru                                 | ███████░░░ | 70%  | 7/10  | Berjalan    |
@@ -30,7 +30,7 @@ Legenda: ██ selesai · ░░ belum · Status: Belum mulai / Berjalan / Sele
 - [x] `docs/db/schema.sql`, `docs/db/gap-analysis.md`, `docs/postman/`
 - [x] Graphify untuk seluruh monorepo
 
-## Hub: katalog — 12/15
+## Hub: katalog — 13/16
 
 - [x] Home: hero, filter momen, "Tersedia sekarang", "Segera hadir", footer
 - [x] ProductCard (mobile + wide desktop) dengan CTA keluar ke link produk
@@ -46,7 +46,8 @@ Legenda: ██ selesai · ░░ belum · Status: Belum mulai / Berjalan / Sele
 - [x] Dokumentasi API yang dikonsumsi
 - [ ] Endpoint waitlist nyata + `VITE_WAITLIST_URL`
 - [ ] URL Goodiebox final (`VITE_GOODIEBOX_URL`)
-- [ ] `/ui-check` formal setelah ilustrasi final
+- [x] Redesign v0.2 ceria + manusiawi (hero animasi, scrapbook, cara kerja, catatan pembuat, CTA melayang) — live
+- [ ] `/ui-check` formal + perbarui Figma ke desain v0.2
 
 ## Goodiebox — 9/10
 

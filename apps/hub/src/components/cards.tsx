@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { findOccasion } from '../data/occasions'
 import { formatIdr, type Product } from '../data/products'
@@ -24,16 +25,16 @@ export function ProductCard({ product, wide }: ProductCardProps) {
   return (
     <article className={[s.card, s.live, wide ? s.wide : ''].join(' ')}>
       <Link to={detailTo} className={s.art} aria-label={`Lihat detail ${product.name}`}>
-        <GiftArt color={product.color} ratio={wide ? 'hero' : 'wide'} />
+        <GiftArt ratio={wide ? 'hero' : 'wide'} animated={false} />
       </Link>
       <div className={s.body}>
         <div className={s.titleRow}>
-          <h3 className={s.title}>
+          <h3 className={[s.title, 'display-joy'].join(' ')}>
             <Link to={detailTo} className={s.titleLink}>
               {product.name}
             </Link>
           </h3>
-          <Badge tone="sage">Tersedia</Badge>
+          <Badge tone="joy">Tersedia</Badge>
         </div>
         <p className={s.tagline}>{wide ? product.description : product.tagline}</p>
         <div className={s.chips}>
@@ -42,12 +43,17 @@ export function ProductCard({ product, wide }: ProductCardProps) {
           ))}
         </div>
         <div className={s.priceRow}>
-          {product.priceIdr && <span className={s.price}>{formatIdr(product.priceIdr)}</span>}
+          {product.priceIdr && (
+            <span className={s.price}>
+              {formatIdr(product.priceIdr)}
+              <span className={s.priceUnit}> / kotak</span>
+            </span>
+          )}
           <span className={s.priceNote}>{wide ? `sekali bayar · ${occasionLabels}` : occasionLabels}</span>
         </div>
         <div className={s.actions}>
-          <Button href={product.href} full={!wide}>
-            Buka {product.name} →
+          <Button variant="joy" href={product.href} full={!wide} arrow>
+            Bikin {product.name} sekarang
           </Button>
           {wide && (
             <Button variant="secondary" to={detailTo}>
@@ -68,10 +74,11 @@ type TeaserCardProps = { product: Product }
  */
 export function TeaserCard({ product }: TeaserCardProps) {
   const detailTo = `/produk/${product.slug}`
+  const style = { '--teaser-tint': product.color } as CSSProperties
   return (
-    <article className={[s.card, s.teaser].join(' ')}>
+    <article className={[s.card, s.teaser].join(' ')} style={style}>
       <Link to={detailTo} aria-label={`Lihat ${product.name}`}>
-        <TeaserArt color={product.color} />
+        <TeaserArt color={product.color} icon={product.icon} />
       </Link>
       <div className={s.teaserBody}>
         <div>

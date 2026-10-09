@@ -23,14 +23,25 @@ function LiveProduct({ product }: { product: Product }) {
       <div className="container">
         <div className={s.detailLayout}>
           <div className={s.detailArt}>
-            <GiftArt color={product.color} ratio="hero" rounded="lg" />
+            <GiftArt
+              animated
+              ratio="hero"
+              rounded="lg"
+              note={
+                <>
+                  Untuk kamu,
+                  <br />
+                  buka pelan-pelan ya ♡
+                </>
+              }
+            />
           </div>
 
           <div className={s.detail}>
             <div className={s.detailHead}>
               <div className={s.detailTitleRow}>
                 <h1 className={s.detailTitle}>{product.name}</h1>
-                <Badge tone="sage">Tersedia</Badge>
+                <Badge tone="joy">Tersedia</Badge>
               </div>
               <p className="script">{product.script}</p>
               <p className={s.detailLead}>{product.description}</p>
@@ -41,7 +52,9 @@ function LiveProduct({ product }: { product: Product }) {
                 </div>
               )}
               <div className={s.detailActions}>
-                <Button href={product.href}>Buka {product.name} →</Button>
+                <Button variant="joy" href={product.href} arrow>
+                  Bikin {product.name} sekarang
+                </Button>
                 <Button variant="secondary" href={product.href}>
                   Lihat contoh hadiah
                 </Button>
@@ -93,7 +106,9 @@ function LiveProduct({ product }: { product: Product }) {
               <strong>{price}</strong>
               <span>sekali bayar</span>
             </div>
-            <Button href={product.href}>Buka {product.name} →</Button>
+            <Button variant="joy" href={product.href} arrow>
+              Bikin {product.name} sekarang
+            </Button>
           </div>
         )}
       </div>
@@ -114,7 +129,7 @@ function ComingSoonProduct({ product }: { product: Product }) {
       <div className="container">
         <div className={s.detailLayout}>
           <div className={s.detailArt}>
-            <TeaserArt color={product.color} rounded="lg" />
+            <TeaserArt color={product.color} icon={product.icon} rounded="lg" />
           </div>
           <div className={s.detail}>
             <div className={s.detailHead}>

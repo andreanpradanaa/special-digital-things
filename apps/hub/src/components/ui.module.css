@@ -4,27 +4,52 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 22px;
+  min-height: 46px;
+  padding: 13px 22px;
   border-radius: var(--radius-pill);
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   font-weight: 600;
   font-size: 15px;
   line-height: 1.2;
   cursor: pointer;
   white-space: nowrap;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    transform 0.15s ease;
+    background-color var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
 }
 
 .button:active {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(0.99);
 }
 
 .button:disabled {
   opacity: 0.6;
   cursor: default;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.button:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Hijau terang + teks hijau tua: kontras ≈ 6:1 (lolos AA). Teks putih di sini gagal (≈2.5:1). */
+.joy {
+  background: var(--joy);
+  color: var(--text-on-joy);
+  box-shadow: 0 2px 0 var(--joy-bright-dark);
+}
+
+.joy:hover {
+  background: var(--joy-hover);
+  box-shadow:
+    0 2px 0 var(--joy-bright-dark),
+    var(--shadow-joy);
 }
 
 .primary {
@@ -43,12 +68,13 @@
 }
 
 .secondary:hover {
-  border-color: var(--text-muted);
+  border-color: var(--text-primary);
+  transform: translateY(-1px);
 }
 
 .ghost {
   background: transparent;
-  color: var(--accent);
+  color: var(--joy-deep);
   padding-left: 4px;
   padding-right: 4px;
 }
@@ -58,8 +84,15 @@
 }
 
 .small {
-  padding: 11px 16px;
+  min-height: 40px;
+  padding: 10px 16px;
   font-size: 14px;
+}
+
+.large {
+  min-height: 54px;
+  padding: 16px 26px;
+  font-size: 16px;
 }
 
 .full {
@@ -70,14 +103,19 @@
 .chip {
   display: inline-flex;
   align-items: center;
-  padding: 8px 14px;
+  min-height: 38px;
+  padding: 8px 15px;
   border-radius: var(--radius-pill);
-  border: 1px solid var(--border-soft);
+  border: 1.5px solid var(--border-soft);
   background: var(--bg-elevated);
   font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
   cursor: default;
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    background-color var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out);
 }
 
 .chipLink {
@@ -85,25 +123,46 @@
 }
 
 .chipLink:hover {
-  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  background: var(--joy-soft);
+  border-color: var(--joy);
 }
 
-.chipActive {
+.chipActive,
+.chipActive:hover {
   background: var(--text-primary);
   border-color: var(--text-primary);
   color: var(--text-on-accent);
+  transform: none;
 }
 
 /* Badge */
 .badge {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   padding: 5px 10px;
   border-radius: var(--radius-pill);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.2;
   white-space: nowrap;
+}
+
+.joy.badge,
+.badge.joy {
+  background: var(--joy-soft);
+  color: var(--joy-deep);
+  box-shadow: none;
+}
+
+.badge.joy::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--joy);
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .sage {
@@ -124,4 +183,16 @@
 .plum {
   background: var(--bg-paper);
   color: var(--text-primary);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
 }

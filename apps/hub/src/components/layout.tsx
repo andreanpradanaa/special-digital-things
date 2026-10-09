@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from 'react'
+import { Fragment, useEffect, useState, type ReactNode } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { occasions, type OccasionId } from '../data/occasions'
 import { liveProducts } from '../data/products'
@@ -7,39 +7,94 @@ import s from './layout.module.css'
 
 const primaryProduct = liveProducts[0]
 
+const navClass = ({ isActive }: { isActive: boolean }) => [s.navLink, isActive ? s.navLinkActive : ''].join(' ')
+
 export function Header() {
   return (
     <header className={s.header}>
       <div className="container">
         <div className={s.headerRow}>
           <Link to="/" className={s.brand}>
-            Special Digital Things
+            <span className={s.logo} aria-hidden="true">
+              <svg viewBox="0 0 32 32">
+                <rect x="5" y="13" width="22" height="15" rx="3" className={s.logoBox} />
+                <rect x="3" y="9" width="26" height="6" rx="2" className={s.logoLid} />
+                <rect x="14" y="9" width="4" height="19" className={s.logoRibbon} />
+                <path d="M16 9c-3-5-8-4-6-1 1 1.5 4 1.6 6 1zm0 0c3-5 8-4 6-1-1 1.5-4 1.6-6 1z" className={s.logoRibbon} />
+              </svg>
+            </span>
+            <span>Special Digital Things</span>
           </Link>
           <nav className={s.nav} aria-label="Navigasi utama">
-            <NavLink to="/" end className={({ isActive }) => [s.navLink, isActive ? s.navLinkActive : ''].join(' ')}>
+            <NavLink to="/" end className={navClass}>
               Produk
             </NavLink>
-            <NavLink to="/untuk/ulang-tahun" className={({ isActive }) => [s.navLink, isActive ? s.navLinkActive : ''].join(' ')}>
+            <NavLink to="/untuk/ulang-tahun" className={navClass}>
               Untuk siapa
             </NavLink>
-            <a className={s.navLink} href="#tentang">
-              Tentang
+            <a className={s.navLink} href="/#cerita">
+              Cerita kami
             </a>
           </nav>
           {primaryProduct?.href && (
             <div className={s.headerCta}>
-              <Button href={primaryProduct.href} size="small">
-                Buka {primaryProduct.name} →
+              <Button variant="joy" href={primaryProduct.href} size="small" arrow>
+                Bikin {primaryProduct.name}
               </Button>
             </div>
           )}
-          <a className={s.mobileAbout} href="#tentang">
-            Tentang
-          </a>
         </div>
-        <p className={['script', s.tagline].join(' ')}>hadiah digital yang terasa personal</p>
+        <nav className={s.mobileNav} aria-label="Navigasi">
+          <NavLink to="/" end className={navClass}>
+            Produk
+          </NavLink>
+          <NavLink to="/untuk/ulang-tahun" className={navClass}>
+            Untuk siapa
+          </NavLink>
+          <a className={s.navLink} href="/#cerita">
+            Cerita kami
+          </a>
+        </nav>
       </div>
     </header>
+  )
+}
+
+type StickyCtaProps = { href?: string; label: string; price?: string }
+
+/**
+ * CTA melayang di bawah layar (mobile). Muncul setelah pengguna menggulir ±1 layar,
+ * dan sembunyi lagi saat footer terlihat supaya tidak menutupi tautan footer.
+ */
+export function StickyCta({ href, label, price }: StickyCtaProps) {
+  const [scrolled, setScrolled] = useState(false)
+  const [footerVisible, setFooterVisible] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const footer = document.getElementById('tentang')
+    if (!footer || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(([entry]) => setFooterVisible(entry.isIntersecting))
+    io.observe(footer)
+    return () => io.disconnect()
+  }, [])
+
+  if (!href) return null
+  const visible = scrolled && !footerVisible
+  return (
+    <div className={[s.sticky, visible ? s.stickyVisible : ''].join(' ')} aria-hidden={!visible} data-testid="sticky-cta">
+      <a className={s.stickyLink} href={href} tabIndex={visible ? 0 : -1}>
+        <span>{label}</span>
+        {price && <span className={s.stickyPrice}>{price}</span>}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
   )
 }
 
@@ -87,13 +142,19 @@ export function FilterRow({ active = 'semua' }: FilterRowProps) {
   )
 }
 
-type SectionProps = { title: string; subtitle?: string; children: ReactNode; id?: string }
+type SectionProps = {
+  title: string
+  subtitle?: string
+  children: ReactNode
+  id?: string
+  /** Judul pakai font ceria (Fraunces) */ joy?: boolean
+}
 
-export function Section({ title, subtitle, children, id }: SectionProps) {
+export function Section({ title, subtitle, children, id, joy }: SectionProps) {
   return (
     <section className={s.section} id={id}>
       <div className={s.sectionHead}>
-        <h2 className={s.sectionTitle}>{title}</h2>
+        <h2 className={[s.sectionTitle, joy ? 'display-joy' : ''].join(' ')}>{title}</h2>
         {subtitle && <p className={s.sectionSub}>{subtitle}</p>}
       </div>
       {children}

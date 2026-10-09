@@ -2,7 +2,22 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: var(--art-bg, #f2d9cd);
+  background: var(--art-bg, var(--bg-paper));
+  isolation: isolate;
+}
+
+.toneJoy {
+  background: var(--gradient-joy);
+}
+
+/* tekstur kertas di atas latar ilustrasi */
+.frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--texture-paper);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .frame svg {
@@ -11,15 +26,19 @@
 }
 
 .ratioWide {
-  aspect-ratio: 39 / 20;
+  aspect-ratio: 39 / 22;
 }
 
 .ratioHero {
-  aspect-ratio: 13 / 10;
+  aspect-ratio: 4 / 3;
 }
 
 .ratioTeaser {
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 16 / 9;
+}
+
+.ratioSquare {
+  aspect-ratio: 1;
 }
 
 .rounded {
@@ -27,5 +46,271 @@
 }
 
 .roundedLg {
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
+}
+
+/* ---------- Gift illustration ---------- */
+.gift {
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+}
+
+.shadow {
+  fill: var(--text-primary);
+  opacity: 0.1;
+}
+
+.boxBody {
+  fill: var(--joy-bright);
+}
+
+.boxFront {
+  fill: var(--joy);
+  opacity: 0.35;
+}
+
+.boxShine {
+  fill: none;
+  stroke: var(--bg-elevated);
+  stroke-width: 5;
+  stroke-linecap: round;
+  opacity: 0.35;
+}
+
+.ribbon {
+  fill: var(--sun);
+}
+
+.lidTop {
+  fill: var(--joy-bright-dark);
+}
+
+.bowLoop {
+  fill: var(--sun);
+  stroke: var(--amber);
+  stroke-width: 2;
+}
+
+.bowKnot {
+  fill: var(--amber);
+}
+
+.envelope {
+  fill: var(--bg-elevated);
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+
+.envelopeFlap {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+
+.seal {
+  fill: var(--rose);
+}
+
+.polaroid {
+  fill: var(--bg-elevated);
+  stroke: var(--border-soft);
+  stroke-width: 1.5;
+}
+
+.photo {
+  fill: var(--sky-soft);
+}
+
+.photoSun {
+  fill: var(--sun);
+}
+
+.photoHill {
+  fill: var(--sage);
+}
+
+.music {
+  fill: var(--sun-soft);
+  stroke: var(--amber);
+  stroke-width: 1.5;
+}
+
+.note {
+  fill: var(--amber-text);
+  stroke: var(--amber-text);
+  stroke-width: 2;
+}
+
+.c {
+  opacity: 0.9;
+}
+.cJoy {
+  fill: var(--joy-bright);
+}
+.cSun {
+  fill: var(--sun);
+}
+.cSage {
+  fill: var(--sage);
+}
+.cRose {
+  fill: var(--rose);
+}
+.cSky {
+  fill: var(--sky);
+}
+
+/* posisi akhir (juga dipakai saat reduced-motion / non-animasi) */
+.lid {
+  transform-box: fill-box;
+  transform-origin: 15% 100%;
+  transform: translateY(-52px) translateX(-14px) rotate(-11deg);
+}
+
+.bow {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.item {
+  transform-box: fill-box;
+}
+
+/* ---------- Animasi ---------- */
+.animated .lid {
+  animation: lidOpen 900ms var(--ease-bounce) both;
+}
+
+.animated .item {
+  animation: itemPeek 700ms var(--ease-out) both;
+}
+.animated .item1 {
+  animation-delay: 450ms;
+}
+.animated .item2 {
+  animation-delay: 570ms;
+}
+.animated .item3 {
+  animation-delay: 690ms;
+}
+
+.animated .c {
+  transform-box: fill-box;
+  animation: confettiFall 6s linear infinite;
+  animation-delay: var(--d, 0s);
+}
+
+.frame:hover .bow {
+  animation: bowWiggle 600ms var(--ease-out);
+}
+
+@keyframes lidOpen {
+  0% {
+    transform: translateY(46px) rotate(0deg);
+  }
+  60% {
+    transform: translateY(-60px) translateX(-16px) rotate(-14deg);
+  }
+  100% {
+    transform: translateY(-52px) translateX(-14px) rotate(-11deg);
+  }
+}
+
+@keyframes itemPeek {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translate(0, -30px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(var(--x, 0), 140px) rotate(320deg);
+    opacity: 0;
+  }
+}
+
+@keyframes bowWiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated .lid,
+  .animated .item,
+  .animated .c,
+  .frame:hover .bow {
+    animation: none;
+  }
+}
+
+/* ---------- Catatan tulisan tangan yang menempel ---------- */
+.note2 {
+  position: absolute;
+  z-index: 2;
+  right: 6%;
+  bottom: 8%;
+  max-width: 46%;
+  padding: 12px 14px 10px;
+  background: var(--sun-soft);
+  border-radius: 4px;
+  box-shadow: var(--shadow-paper);
+  transform: rotate(3deg);
+  font-family: var(--font-script);
+  font-size: 20px;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.note2::before {
+  /* selotip */
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 54px;
+  height: 18px;
+  transform: translateX(-50%) rotate(-4deg);
+  background: var(--bg-elevated);
+  opacity: 0.7;
+  border-radius: 2px;
+}
+
+/* ---------- Ikon teaser ---------- */
+.iconWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+}
+
+.icon {
+  width: 30%;
+  max-width: 64px;
+  color: var(--text-primary);
+  opacity: 0.55;
 }

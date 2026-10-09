@@ -57,3 +57,14 @@ Lihat `src/data/products.ts`, `src/data/occasions.ts`, dan komponen — semua ba
 - [ ] Konfirmasi URL Goodiebox final.
 - [ ] Endpoint waitlist dari BE.
 - [ ] Ilustrasi final menggantikan placeholder SVG.
+
+## Revisi v0.2 — redesign "ceria + manusiawi" (2026-10-10)
+
+Sumber: `docs/prompt-ceria-redesign.md` + permintaan user ("kurang soul manusia, terlalu flat, warna kurang menarik"). **Figma belum diperbarui** (kuota MCP habis) — implementasi kode adalah acuan terbaru.
+
+- Token baru di `packages/design/tokens.css`: `--joy` (coral), `--sun`, gradien, tekstur kertas, bayangan berlapis, token gerak. Font display ceria **Fraunces** (`.display-joy`) untuk hero, judul ceria, nama Goodiebox; Playfair tetap untuk area reflektif.
+- Hero: kotak hadiah SVG terbuka beranimasi (tutup naik, isi muncul bertahap, confetti), catatan tulisan tangan menempel, stabilo kuning di kata kunci, baris trust (tanpa aplikasi, tanpa ongkir, mulai Rp 20.000). Copy berorientasi perasaan.
+- Bagian baru: **Cara kerja** dari sisi "kamu" dan "dia" (`data/story.ts`), **Contoh isi kotak** gaya scrapbook (contoh, bukan testimoni), **Catatan pembuat** (DRAF — perlu diganti cerita asli).
+- Segera hadir: maksimal 3 kartu + tombol "Lihat N lagi"; urutan via field `order`; ikon garis per produk (`icon`).
+- Micro-interaction: tombol joy (teks gelap, kontras AA), panah bergeser, chip terangkat, kartu naik saat hover; semua menghormati `prefers-reduced-motion`.
+- Mobile: navigasi teks di bawah brand, CTA melayang "Bikin Goodiebox · Rp 20.000" setelah 1 layar, sembunyi saat footer terlihat.

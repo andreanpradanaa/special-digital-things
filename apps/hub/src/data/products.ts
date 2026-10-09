@@ -2,6 +2,8 @@ import type { OccasionId } from './occasions'
 
 export type ProductStatus = 'live' | 'coming-soon'
 
+export type ProductIcon = 'ticket' | 'radio' | 'lock-envelope' | 'heart-plaster' | 'sprout' | 'compass'
+
 export type Product = {
   slug: string
   name: string
@@ -16,29 +18,34 @@ export type Product = {
   /** Hal-hal yang diisi pengirim (chips) */
   items: string[]
   occasions: OccasionId[]
-  /** Warna latar ilustrasi placeholder */
+  /** Warna latar ilustrasi */
   color: string
+  /** Urutan tampil (kecil = lebih dulu). Produk ceria di depan, yang reflektif di belakang. */
+  order: number
+  /** Ikon garis untuk kartu teaser */
+  icon?: ProductIcon
   /** Link ke halaman produk itu sendiri. Builder + checkout ada di sana, bukan di hub. */
   href?: string
   steps?: { title: string; description: string }[]
   faq?: { q: string; a: string }[]
 }
 
-const GOODIEBOX_URL = import.meta.env.VITE_GOODIEBOX_URL ?? '/goodiebox'
+const GOODIEBOX_URL = import.meta.env.VITE_GOODIEBOX_URL ?? '/goodiebox/'
 
 export const products: Product[] = [
   {
     slug: 'goodiebox',
     name: 'Goodiebox',
     status: 'live',
-    tagline: 'Kotak hadiah 3D yang dibuka lewat link',
+    tagline: 'Satu link, satu kotak, satu orang yang bakal senyum.',
     description:
-      'Kotak hadiah 3D yang kamu isi sendiri, lalu dia buka lewat satu link. Pita ditarik, tutup terbuka, isinya muncul satu per satu. Tanpa aplikasi, tanpa ongkir.',
-    script: 'satu kotak, satu link, satu orang',
+      'Kotak hadiah 3D yang kamu isi sendiri dengan surat, foto, dan pesan suara. Dia tinggal klik link-nya, pita ditarik, tutup terbuka, dan isinya muncul satu per satu. Tanpa aplikasi, tanpa ongkir.',
+    script: 'bikin dia senyum lebar hari ini',
     priceIdr: 20000,
     items: ['Surat / amplop', 'Foto polaroid', 'Kartu musik', 'Kupon janji', 'Voice note', 'Video kenangan'],
     occasions: ['ulang-tahun', 'romantis', 'terima-kasih', 'persahabatan', 'semangat'],
-    color: '#f2d9cd',
+    color: '#ffe3d6',
+    order: 0,
     href: GOODIEBOX_URL,
     steps: [
       { title: 'Dia menerima link kejutan dari kamu', description: 'Lewat WhatsApp, DM, atau cara apa pun. Tidak perlu akun.' },
@@ -71,6 +78,8 @@ export const products: Product[] = [
     items: ['Pesan penguat', 'Lagu penenang', 'Janji kecil'],
     occasions: ['semangat', 'persahabatan'],
     color: '#f3d6da',
+    order: 60,
+    icon: 'heart-plaster',
   },
   {
     slug: 'lost-and-found',
@@ -83,6 +92,8 @@ export const products: Product[] = [
     items: ['Foto lama', 'Catatan', 'Benda kenangan'],
     occasions: ['persahabatan', 'romantis'],
     color: '#e4e6d9',
+    order: 50,
+    icon: 'compass',
   },
   {
     slug: 'midnight-radio',
@@ -95,6 +106,8 @@ export const products: Product[] = [
     items: ['Pesan suara', 'Lagu pilihan', 'Dedikasi'],
     occasions: ['ulang-tahun', 'romantis'],
     color: '#d9dce8',
+    order: 20,
+    icon: 'radio',
   },
   {
     slug: 'secret-message-machine',
@@ -106,6 +119,8 @@ export const products: Product[] = [
     items: ['Pesan rahasia', 'Kode pembuka', 'Teka-teki'],
     occasions: ['romantis', 'persahabatan'],
     color: '#e8e0d0',
+    order: 30,
+    icon: 'lock-envelope',
   },
   {
     slug: 'unsaid-garden',
@@ -118,6 +133,8 @@ export const products: Product[] = [
     items: ['Kata-kata', 'Bunga pilihan', 'Surat panjang'],
     occasions: ['terima-kasih', 'romantis'],
     color: '#dce8dc',
+    order: 40,
+    icon: 'sprout',
   },
   {
     slug: 'secret-trip-terminal',
@@ -129,11 +146,15 @@ export const products: Product[] = [
     items: ['Tiket', 'Tujuan rahasia', 'Itinerary'],
     occasions: ['ulang-tahun', 'romantis'],
     color: '#f0e4d0',
+    order: 10,
+    icon: 'ticket',
   },
 ]
 
-export const liveProducts = products.filter((p) => p.status === 'live')
-export const comingSoonProducts = products.filter((p) => p.status === 'coming-soon')
+const byOrder = (a: Product, b: Product) => a.order - b.order
+
+export const liveProducts = products.filter((p) => p.status === 'live').sort(byOrder)
+export const comingSoonProducts = products.filter((p) => p.status === 'coming-soon').sort(byOrder)
 
 export function findProduct(slug: string | undefined): Product | undefined {
   return products.find((p) => p.slug === slug)

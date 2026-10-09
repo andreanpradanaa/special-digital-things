@@ -1,14 +1,14 @@
 # Progress — monorepo Special Digital Things
 
-Diperbarui: 2026-10-09 · Total **44/66 task · 67%**
+Diperbarui: 2026-10-10 · Total **48/67 task · 72%**
 
 | Prioritas | Fitur                                              | Progress   | %    | x/y   | Status      |
 | --------- | -------------------------------------------------- | ---------- | ---- | ----- | ----------- |
 | P0        | Fondasi monorepo (workspaces, tooling, CI, Claude) | ██████████ | 100% | 12/12 | Selesai     |
 | P0        | Hub: katalog                                       | ████████░░ | 80%  | 12/15 | Berjalan    |
-| P0        | Goodiebox: builder + checkout + penerima           | ████████░░ | 80%  | 8/10  | Berjalan    |
+| P0        | Goodiebox: builder + checkout + penerima           | █████████░ | 90%  | 9/10  | Berjalan    |
 | P0        | API: order, pembayaran, gift, upload               | ███████░░░ | 73%  | 8/11  | Berjalan    |
-| P1        | Deploy ke VPS baru                                 | ░░░░░░░░░░ | 0%   | 0/8   | Belum mulai |
+| P1        | Deploy ke VPS baru                                 | ███░░░░░░░ | 33%  | 3/9   | Terblokir   |
 | P2        | Multi-produk di API (waitlist, kolom produk)       | ░░░░░░░░░░ | 0%   | 0/4   | Belum mulai |
 | P2        | Ilustrasi & aset final                             | ███░░░░░░░ | 25%  | 1/4   | Berjalan    |
 | P2        | Hadiahku (riwayat per customer)                    | ░░░░░░░░░░ | 0%   | 0/2   | Belum mulai |
@@ -48,7 +48,7 @@ Legenda: ██ selesai · ░░ belum · Status: Belum mulai / Berjalan / Sele
 - [ ] URL Goodiebox final (`VITE_GOODIEBOX_URL`)
 - [ ] `/ui-check` formal setelah ilustrasi final
 
-## Goodiebox — 8/10
+## Goodiebox — 9/10
 
 - [x] Builder: nama, mood, catatan, warna, tema box, 6 jenis item
 - [x] Preview 3D (React Three Fiber), buka/tutup tutup kotak
@@ -58,7 +58,7 @@ Legenda: ██ selesai · ░░ belum · Status: Belum mulai / Berjalan / Sele
 - [x] Email tautan setelah bayar (via API, SendGrid)
 - [x] Build + typecheck lolos di monorepo
 - [x] Test layout item (9)
-- [ ] Pindah ke base path `/goodiebox` (atau subdomain) agar hub bisa di root
+- [x] Pindah ke base path `/goodiebox` (link lama `/gift/:slug` tetap jalan via nginx)
 - [ ] Migrasi style ke `@sdt/design` + format prettier
 
 ## API — 8/11
@@ -75,16 +75,17 @@ Legenda: ██ selesai · ░░ belum · Status: Belum mulai / Berjalan / Sele
 - [ ] `gofmt` untuk `cmd/server/main.go` dan `internal/email/service.go`
 - [ ] Rate limit endpoint publik (orders, uploads)
 
-## Deploy ke VPS baru — 0/8
+## Deploy ke VPS baru — 3/9 (terblokir: trafik internasional ke IP VPS diblokir di jaringan Rumahweb)
 
 - [ ] Ganti secret yang bocor: SendGrid API key, Midtrans server key, password DB
-- [ ] PostgreSQL + user baru, restore `~/Desktop/vps-backup/root/goodiebox.sql`
+- [x] PostgreSQL + user baru (password acak), restore 33 order / 29 payment / 44 notifikasi, dump dihapus dari server
 - [ ] User `deploy` terbatas (SSH key khusus CI, sudo hanya untuk restart service)
-- [ ] Nginx: hub di root, Goodiebox di `/goodiebox`, API di `/api/`
-- [ ] SSL (root, www, api)
-- [ ] `.env` API di server dengan secret baru
+- [x] Nginx: hub di root, Goodiebox di `/goodiebox`, `/gift/:slug`, API di `/api/`, uploads (config: `services/api/deploy/nginx-specialdigitalthings.conf`)
+- [ ] SSL (root, www) — Let's Encrypt HTTP gagal karena blokir internasional; opsi: DNS-01 manual via TXT Hostinger
+- [x] API jalan (systemd + hardening, MemoryMax 512M), `.env` dari config lama + DATABASE_URL baru — secret lama masih dipakai, harus diganti
 - [ ] Aktifkan deploy CI (`DEPLOY_API_ENABLED`, secrets `VPS_*`) + job deploy hub/goodiebox
-- [ ] Smoke test checkout sandbox end-to-end
+- [ ] Smoke test checkout sandbox end-to-end (butuh HTTPS)
+- [ ] Rumahweb membuka blokir trafik internasional (tiket support)
 
 ## Multi-produk di API — 0/4
 

@@ -1,6 +1,7 @@
 [Unit]
-Description=Goodiebox Server
-After=network.target
+Description=Goodiebox Server (services/api)
+After=network.target postgresql.service
+Wants=postgresql.service
 
 [Service]
 Type=simple
@@ -9,7 +10,23 @@ EnvironmentFile=/opt/goodiebox/.env
 Restart=on-failure
 RestartSec=5
 User=goodiebox
+Group=goodiebox
 WorkingDirectory=/opt/goodiebox
+
+# Batas memori: kalau bocor, hanya service ini yang di-restart, bukan seluruh VPS kehabisan RAM
+MemoryMax=512M
+
+# Hardening: proses hanya boleh menulis ke folder uploads
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/goodiebox/uploads
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
 
 [Install]
 WantedBy=multi-user.target

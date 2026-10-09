@@ -1,6 +1,6 @@
 # Progress — monorepo Special Digital Things
 
-Diperbarui: 2026-10-10 · Total **50/67 task · 75%**
+Diperbarui: 2026-10-10 · Total **52/68 task · 76%**
 
 | Prioritas | Fitur                                              | Progress   | %    | x/y   | Status      |
 | --------- | -------------------------------------------------- | ---------- | ---- | ----- | ----------- |
@@ -8,7 +8,7 @@ Diperbarui: 2026-10-10 · Total **50/67 task · 75%**
 | P0        | Hub: katalog                                       | ████████░░ | 80%  | 12/15 | Berjalan    |
 | P0        | Goodiebox: builder + checkout + penerima           | █████████░ | 90%  | 9/10  | Berjalan    |
 | P0        | API: order, pembayaran, gift, upload               | ███████░░░ | 73%  | 8/11  | Berjalan    |
-| P1        | Deploy ke VPS baru                                 | ████░░░░░░ | 56%  | 5/9   | Berjalan    |
+| P1        | Deploy ke VPS baru                                 | ███████░░░ | 70%  | 7/10  | Berjalan    |
 | P2        | Multi-produk di API (waitlist, kolom produk)       | ░░░░░░░░░░ | 0%   | 0/4   | Belum mulai |
 | P2        | Ilustrasi & aset final                             | ███░░░░░░░ | 25%  | 1/4   | Berjalan    |
 | P2        | Hadiahku (riwayat per customer)                    | ░░░░░░░░░░ | 0%   | 0/2   | Belum mulai |
@@ -75,16 +75,17 @@ Legenda: ██ selesai · ░░ belum · Status: Belum mulai / Berjalan / Sele
 - [ ] `gofmt` untuk `cmd/server/main.go` dan `internal/email/service.go`
 - [ ] Rate limit endpoint publik (orders, uploads)
 
-## Deploy ke VPS baru — 5/9
+## Deploy ke VPS baru — 7/10
 
-- [ ] Ganti secret yang bocor: SendGrid API key, Midtrans server key, password DB
+- [x] Ganti secret yang bocor: Midtrans sandbox (server+client), SendGrid (restricted, Mail Send), password DB — diisi user langsung di server
 - [x] PostgreSQL + user baru (password acak), restore 33 order / 29 payment / 44 notifikasi, dump dihapus dari server
 - [ ] User `deploy` terbatas (SSH key khusus CI, sudo hanya untuk restart service)
 - [x] Nginx: hub di root, Goodiebox di `/goodiebox`, `/gift/:slug`, API di `/api/`, uploads (config: `services/api/deploy/nginx-specialdigitalthings.conf`)
 - [x] SSL Let's Encrypt (root + www), redirect http→https, perpanjangan otomatis via nginx (dry-run lulus), berlaku s.d. 2027-01-07
-- [x] API jalan (systemd + hardening, MemoryMax 512M), `.env` dari config lama + DATABASE_URL baru — secret lama masih dipakai, harus diganti
+- [x] API jalan (systemd + hardening, MemoryMax 512M), `.env` di server (600, root) dengan DATABASE_URL baru + secret yang sudah dirotasi
 - [ ] Aktifkan deploy CI (`DEPLOY_API_ENABLED`, secrets `VPS_*`) + job deploy hub/goodiebox
-- [ ] Smoke test checkout sandbox end-to-end (butuh HTTPS)
+- [x] Smoke test sandbox end-to-end: order Rp 20.000 → bayar → webhook otomatis → paid → email link hadiah terkirim
+- [x] Email domain: mailbox noreply@ + alias halo@, andrean.pradana@; SPF, DMARC, SendGrid domain auth + link branding terverifikasi
 - [x] Trafik internasional terbuka lagi (dicek dari 6 negara); outbound ke SendGrid, Midtrans, GitHub OK
 
 ## Multi-produk di API — 0/4
